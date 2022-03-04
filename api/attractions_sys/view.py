@@ -135,7 +135,7 @@ def attractions_search():
         keyword_sql=["%"+keyword+"%"]
         mycursor.execute(sql_count,keyword_sql)
         myresult_page_count=mycursor.fetchall()
-        page_max=myresult_page_count[0][0]/12
+        page_max=myresult_page_count[0][0]/12   
         page_max=math.ceil(page_max)-1
         if page_max==int(page):
         # sql="SELECT `id` FROM `TAIPEI_VIEW` WHERE `name` like %s LIMIT 12 OFFSET 2 "
