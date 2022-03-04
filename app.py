@@ -1,11 +1,10 @@
 from flask import *
 from api.attractions_sys.view import attractions_sys
-from flask_cors import CORS
 app=Flask(__name__)
 app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
 app.register_blueprint(attractions_sys, url_prefix='/api')
-CORS(attractions_sys)
+
 
 # Pages
 @app.route("/")
