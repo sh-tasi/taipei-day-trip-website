@@ -43,7 +43,12 @@ def attractions_search():
         myresult_page=mycursor.fetchall()
         for i in range(len(myresult_page)):   #SQL資料整理
             data_resoponse=dict(zip(datas_field,myresult_page[i]))
-            data_resoponse["images"]=[data_resoponse["images"]]
+            # print(data_resoponse["images"])
+            images=data_resoponse["images"]
+            images_list=images.split(',')
+            data_resoponse["images"]=images_list
+            # for a in range(len(images_list)):
+            #     images_list[a]=
             view_page.append(data_resoponse)
         view_maxpage=view_maxpage-1 #第0頁開始計算
         if page_int<view_maxpage:    
@@ -167,7 +172,9 @@ def attractions_search():
             datas_field=list(zip(*mycursor.description))[0]
             for i in range(len(myresult_key)):
                 data_resoponse=dict(zip(datas_field,myresult_key[i]))
-                data_resoponse["images"]=[data_resoponse["images"]]
+                images=data_resoponse["images"]
+                images_list=images.split(',')
+                data_resoponse["images"]=images_list
                 view_key_data.append(data_resoponse)
             view_page_js=jsonify({"nextPage":page_int+1,"data":view_key_data})
             # print(myresult_key)
@@ -186,7 +193,9 @@ def attractions_search():
             datas_field=list(zip(*mycursor.description))[0]
             for i in range(len(myresult_key)):
                 data_resoponse=dict(zip(datas_field,myresult_key[i]))
-                data_resoponse["images"]=[data_resoponse["images"]]
+                images=data_resoponse["images"]
+                images_list=images.split(',')
+                data_resoponse["images"]=images_list
                 view_key_data.append(data_resoponse)
             view_page_js=jsonify({"nextPage":None,"data":view_key_data})
             mycursor.close()
@@ -209,7 +218,9 @@ def attraction_id_search(attractionID):
     datas_field=list(zip(*mycursor.description))[0]
     if myresult!=None:
         data_resoponse=dict(zip(datas_field,myresult))
-        data_resoponse["images"]=[data_resoponse["images"]]
+        images=data_resoponse["images"]
+        images_list=images.split(',')
+        data_resoponse["images"]=images_list
         data_resoponse_data={'data':data_resoponse}
         print(data_resoponse_data)
         data_resoponse_js=jsonify(data_resoponse_data)
