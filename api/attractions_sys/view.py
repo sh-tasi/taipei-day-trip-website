@@ -4,8 +4,9 @@ import json,math
 import mysql.connector
 attractions_sys = Blueprint('attractions_sys',__name__,)
 def search_key(page):
-    sql_select_key="SELECT `id`,`name`,`category`,`description`,`address`,`transport`,`mrt`,`latitude`,`longitude`,`images` FROM `TAIPEI_VIEW`WHERE `name` like %s LIMIT "
-    sql_page=page*12
+    sql_select_key="SELECT `id`,`name`,`category`,`description`,`address`,`transport`,`mrt`,`latitude`,`longitude`,`images` FROM `TAIPEI_VIEW`WHERE `name` like %s LIMIT "   
+    sql_page=12*int(page)
+    print(sql_page)
     sql=sql_select_key+" "+str(sql_page)+","+"12"
     return(sql)
 def view_select(page):
@@ -151,6 +152,7 @@ def attractions_search():
         keyword_sql=["%"+keyword+"%"]
         mycursor.execute(sql_count,keyword_sql)
         myresult_page_count=mycursor.fetchall()
+        print(myresult_page_count)
         page_max=myresult_page_count[0][0]/12   
         page_max=math.ceil(page_max)-1
         page_int=int(page)
@@ -165,15 +167,17 @@ def attractions_search():
             datas_field=list(zip(*mycursor.description))[0]
             for i in range(len(myresult_key)):
                 data_resoponse=dict(zip(datas_field,myresult_key[i]))
+                data_resoponse["images"]=[data_resoponse["images"]]
                 view_key_data.append(data_resoponse)
-                print(data_resoponse)
             view_page_js=jsonify({"nextPage":page_int+1,"data":view_key_data})
-            print(myresult_key)
+            # print(myresult_key)
             mycursor.close()
             mydb.close()
             return(view_page_js)
         else :
             sql=search_key(page)
+            print(sql)
+            print("H")
             keyword_sql=["%"+keyword+"%"]
             print(keyword_sql)
             mycursor.execute(sql,keyword_sql)
@@ -182,10 +186,9 @@ def attractions_search():
             datas_field=list(zip(*mycursor.description))[0]
             for i in range(len(myresult_key)):
                 data_resoponse=dict(zip(datas_field,myresult_key[i]))
+                data_resoponse["images"]=[data_resoponse["images"]]
                 view_key_data.append(data_resoponse)
-                print(data_resoponse)
             view_page_js=jsonify({"nextPage":None,"data":view_key_data})
-            print(myresult_key)
             mycursor.close()
             mydb.close()
             return(view_page_js) 
@@ -206,6 +209,7 @@ def attraction_id_search(attractionID):
     datas_field=list(zip(*mycursor.description))[0]
     if myresult!=None:
         data_resoponse=dict(zip(datas_field,myresult))
+        data_resoponse["images"]=[data_resoponse["images"]]
         data_resoponse_data={'data':data_resoponse}
         print(data_resoponse_data)
         data_resoponse_js=jsonify(data_resoponse_data)
