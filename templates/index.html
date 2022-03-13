@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+        <title>台北一日遊</title>
+        <style type="text/css">
+            @font-face {
+                font-family:'Noto Sans TC';
+                font-style: normal;
+                font-weight: 700;
+                src:url("https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap&subset=chinese-traditional"),
+              }
+            html{
+                height:100%;
+                margin:0;
+            }
+            body{
+                height: 100%;
+                margin:0;
+                display: flex; 
+                flex-direction: column;
+            }
+            a {text-decoration:none;}
+            a:visited {color:#666666;}
+            .CS{
+                 flex-grow: 1;
+            }
+            .SPACE{
+                height:32px;
+            }
+            .NavigationBar{
+                font-family:'Noto Sans TC',serif;display:flex;width:1200px;justify-self: center;margin:auto;  font-size:16px;justify-content: center; 
+                align-items: center; background-color:#FFFFFF;
+            }
+            .NB-SPACE{
+                position:fixed;width:100%;background-color:#FFFFFF; top:0%;
+            }
+            .NBtitle{
+                font-family:'Noto Sans TC',serif;flex:8;justify-self:start;font-size:1rem; font-size:1.5rem;color:#448899;font-weight: bolder;
+                
+            } 
+            .NBitem{
+                font-family:'Noto Sans TC',serif;display:flex;flex:1.2;justify-self:end;font-size:1rem; color:#666666;font-weight: bold;
+                
+            }
+            .item{
+                font-family:'Noto Sans TC',serif;flex:1;justify-self: end;text-align:center;color:#666666;
+            }
+
+            .content{
+                display:flex; flex-direction: column;
+                margin: auto;align-content: center;justify-content: center;width:1200px;height: 320px;
+            }
+            .content-bold{
+                font-weight:bold;font-size:1.5rem;color: #F8F8F8;margin:0rem 0 0.5rem 0;
+            }
+            .content-{
+                font-size:1rem;color: #F8F8F8;
+            }
+            .search{
+                margin-top: 1rem;
+                 display:flex;flex-direction: row;align-content: center;
+            }
+            .keywd{
+                font-size:20px;color:#757575;padding:5px;
+            }
+            .button{
+                background-image:url("/static/images/icon_search.png");  background-repeat: no-repeat; background-position: center center;
+                vertical-align:top ;
+                height: 40px;
+                width: 60px;
+                border: 0;
+                margin-left: -4px;
+                background-color: #448899;
+            }
+            .parent-box{
+                display:flex;
+                flex-wrap:wrap;
+                width:1200px;margin-left:auto;margin-right:auto;
+                padding-bottom: 50px;
+               
+            }
+            .box{
+                width:22%;
+                height:100%;
+                aspect-ratio:16/9;
+                margin:1% 2%  1% 0;
+                border: 1px solid #E8E8E8;
+                border-radius: 5px;
+                
+
+            }
+            .box-name{
+                font-family:'Noto Sans TC';font-weight: bolder;color:#757575; padding:5px; line-height:25px; margin-top:2%;
+            }
+            .box-introd{
+                display:flex;
+            }
+            .box-introd-mrt{
+                font-family:'Noto Sans TC';flex:1;justify-self: start;color:#757575; font-size:16px; padding:5px;
+            }
+            .box-introd-category{
+                font-family:'Noto Sans TC';flex:1;justify-self: end; color:#757575;text-align:right; font-size:16px; padding:5px;
+            }
+            .copy{
+                width:100% ;hight:100%;background-color: #757575; 
+                
+            }
+            .box-content{
+                flex-grow: 1; bolder:1px red solid;
+            }
+            .COPYRIGHT{
+                font-family:'Noto Sans TC';text-align:center;  font-size:16px; color:#FFFFFF;font-weight: bolder;padding:20px;
+            }
+            img{
+                display: block;
+                width: 100%;
+                height: auto;
+                aspect-ratio:16/9 ;
+            }
+
+            #backgroud{
+                display: flex;
+                background-image:url("/static/images/section.png");  background-size: cover;  background-repeat: no-repeat;background-position: center center;
+                
+            }
+            @media screen and (max-width:1200px){
+                .NavigationBar{width:90%;}
+                .NBtitle{flex:6;}
+                .content{width:90%;}
+                .parent-box{width:90%;}
+                .box{width:47%;}
+            }
+            @media screen and (max-width:600px){
+                .NBtitle{flex:1;}
+                .box{width:100%;}
+                .content{
+                    weight:90%
+                }
+                #backgroud{
+                background-image:url("/static/images/section-Mobile.png");
+                background-size: contain;
+                background-position: right top;
+                
+
+            }
+            }
+
+        </style>
+        <script type="text/javascript">
+            const OAA=document.querySelector('.COPYRIGHT')
+            nextPage=0;
+            async function getData(url){
+                let data=await fetch(url);
+                data= await data.json();
+                my_result=data.data
+                for (let i=0;i<my_result.length;i++){
+                    name=my_result[i].name
+                    mrt=my_result[i].mrt
+                    category=my_result[i].category
+                    images=my_result[i].images
+                    image=images[0]
+                    
+                    addElement(image,name,mrt,category)
+                }
+            }
+            function addElement(img,view_name,mrt,category){
+                parentbox=document.getElementById("parent-box")
+                let box= document.createElement("div");
+                box.setAttribute("class","box");
+                let newimg=document.createElement("img");
+                newimg.setAttribute("src",img);
+                box.appendChild(newimg);
+                let name=document.createElement("div");
+                name.textContent=view_name;
+                name.setAttribute("class","box-name")
+                box.appendChild(name)
+                let indtrod=document.createElement("div");
+                indtrod.setAttribute("class","box-introd");
+                let indtrod_mrt=document.createElement("div");
+                indtrod_mrt.setAttribute("class","box-introd-mrt");
+                indtrod_mrt.textContent=mrt;
+                indtrod.appendChild(indtrod_mrt);
+                box.appendChild(indtrod)
+                let indtrod_category=document.createElement("div");
+                indtrod_category.setAttribute("class","box-introd-category")
+                indtrod_category.textContent=category
+                indtrod.appendChild(indtrod_category);
+                parentbox.appendChild(box);
+
+
+            }
+            async function getdata_keyword(url,keyword){
+                let data= await fetch(url);
+                data= await data.json();
+                my_result=data.data
+                if (my_result==""){
+                    parentbox=document.getElementById("parent-box")
+                    let box= document.createElement("div");
+                    box.setAttribute("class","box-content");
+                    box.textContent="沒有符合"+keyword+"的搜尋結果";
+                    
+                    parentbox.appendChild(box);
+                }
+                else{
+                    for (let i=0;i<my_result.length;i++){
+                        name=my_result[i].name
+                        mrt=my_result[i].mrt
+                        category=my_result[i].category
+                        images=my_result[i].images
+                        image=images[0]
+                        if (mrt=="no data"){
+                            mrt="士林"
+                        }
+                        addElement(image,name,mrt,category)
+                    }
+                    console.log(my_result)
+                    nextPage=data.nextPage;
+                    console.log(nextPage);
+                }
+
+            }
+            async function getdata2(){
+                const nameElement = document.getElementsByName('keyword');
+                const keyword = nameElement[0].value;
+                console.log(keyword);
+                if (nextPage==null){
+                    return("have no data")
+                }
+                else{
+                    let url='http://192.168.1.103:3000/api/attractions?page='+nextPage
+                    let data= await fetch(url);
+                    data= await data.json();
+                    my_result=data.data
+                    for (let i=0;i<my_result.length;i++){
+                        name=my_result[i].name
+                        mrt=my_result[i].mrt
+                        if (mrt=="no data"){
+                            mrt="士林"
+                        }
+                        category=my_result[i].category
+                        images=my_result[i].images
+                        image=images[0]
+                            
+                        addElement(image,name,mrt,category)
+                    }
+                    nextPage=data.nextPage;
+                    if (nextPage==null){
+                        page=page+1
+                    }
+                    else{
+                        page=nextPage-1
+                    }
+                    console.log("loading page："+String(page));     
+                }
+            }
+            async function getkey(keyword){
+                if(nextPage==null){
+                    return("no")
+                }
+                else{
+                    let url='http://192.168.1.103:3000/api/attractions?page='+nextPage+"&keyword="+keyword
+                    let data= await fetch(url);
+                    data= await data.json();
+                    my_result=data.data
+    
+                    for (let i=0;i<my_result.length;i++){
+                        name=my_result[i].name
+                        mrt=my_result[i].mrt
+                        category=my_result[i].category
+                        images=my_result[i].images
+                        image=images[0]
+                        
+                        addElement(image,name,mrt,category)
+                    }
+                    nextPage=data.nextPage;
+                }
+                
+                console.log(nextPage);
+            }
+          
+            
+            
+            const url_view_api='http://192.168.1.103:3000/api/attractions?page=0'
+
+
+
+        </script>
+    </head>
+    <script type="text/javascript">
+        function test(){
+            
+            
+            const nameElement = document.getElementsByName('keyword');
+            const keyword = nameElement[0].value;
+            if (keyword==""){
+                let node=document.querySelector('#parent-box')
+                while (node.firstChild){
+                    node.removeChild(node.firstChild)
+                }
+                let url='http://192.168.1.103:3000/api/attractions?page=0'
+                getData(url);
+                nextPage=1;
+                return("no tigger")
+            }
+            else{
+                let node=document.querySelector('#parent-box')
+                while (node.firstChild){
+                    node.removeChild(node.firstChild)
+                }
+                console.log(keyword)
+                let url='http://192.168.1.103:3000/api/attractions?page=0&keyword='+keyword
+                getdata_keyword(url,keyword);
+                
+            }
+        }
+    </script>
+    <body>
+        <div class="CS">
+            <div class="SPACE"></div>
+            <div class="NB-SPACE">
+                <div class="NavigationBar">  
+                    <div class="NBtitle">台北一日遊</div>
+                    <div class="NBitem">
+                        <div class="item"><a href="/">預定行程</a></div>
+                        <div class="item"><a href="/">登入/註冊</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="myhome" id="backgroud">
+                <div class="content">
+                    <div class="content-bold">
+                        輕鬆享受台北一日悠閒
+                    </div>
+                    <div class="content-">
+                        探索每個角落，體驗城市的深度旅遊行程
+                    </div>
+                    <div class="search">
+                        
+                        <input type="text"  class="keywd" id="keyword" name="keyword" placeholder="請輸入景點名稱查詢">
+                        <button type="submit" class="button" id="click" onclick="test();">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="parent-box" id="parent-box">
+                
+            </div>
+            <div class="ob" id ="ob"></div>
+        </div>
+        <div class="copy"><div class="COPYRIGHT" id="COPYRIGHT">COPYRIGHT © 2021 台北一日遊</div>
+        
+    <body>
+    <script>
+        const OB=document.querySelector('.ob')
+        let options={}
+        function callback(entry){
+            if(entry[0].isIntersecting){
+                const nameElement = document.getElementsByName('keyword');
+                const keyword = nameElement[0].value;
+                if (keyword==""){
+                    getdata2();
+                }
+                else{
+                    getkey(keyword);
+                }
+            }        
+        }
+        let observer=new IntersectionObserver(callback,options)
+
+        observer.observe(OB);
+    </script>
+</html>
