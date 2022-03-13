@@ -228,7 +228,7 @@
                     return("have no data")
                 }
                 else{
-                    let url='http://192.168.1.103:3000/api/attractions?page='+nextPage
+                    let url='http://18.232.215.227:3000/api/attractions?page='+nextPage
                     let data= await fetch(url);
                     data= await data.json();
                     my_result=data.data
@@ -259,7 +259,7 @@
                     return("no")
                 }
                 else{
-                    let url='http://192.168.1.103:3000/api/attractions?page='+nextPage+"&keyword="+keyword
+                    let url='http://18.232.215.227:3000/api/attractions?page='+nextPage+"&keyword="+keyword
                     let data= await fetch(url);
                     data= await data.json();
                     my_result=data.data
@@ -281,7 +281,7 @@
           
             
             
-            const url_view_api='http://192.168.1.103:3000/api/attractions?page=0'
+            const url_view_api='http://18.232.215.227:3000/api/attractions?page=0'
 
 
 
@@ -298,7 +298,7 @@
                 while (node.firstChild){
                     node.removeChild(node.firstChild)
                 }
-                let url='http://192.168.1.103:3000/api/attractions?page=0'
+                let url='http://18.232.215.227:3000/api/attractions?page=0'
                 getData(url);
                 nextPage=1;
                 return("no tigger")
@@ -309,7 +309,7 @@
                     node.removeChild(node.firstChild)
                 }
                 console.log(keyword)
-                let url='http://192.168.1.103:3000/api/attractions?page=0&keyword='+keyword
+                let url='http://18.232.215.227:3000/api/attractions?page=0&keyword='+keyword
                 getdata_keyword(url,keyword);
                 
             }
