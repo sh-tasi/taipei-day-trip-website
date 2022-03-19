@@ -300,7 +300,7 @@
     let right_btn = document.querySelector('.right_btn')
     let max_img=0
     async function getdata(){
-        let api_url="http://192.168.1.103:3000/api/attraction/"+id
+        let api_url="/api/attraction/"+id
         let api_response= await fetch(api_url)
         let data=await api_response.json()
         let my_result=await data.data

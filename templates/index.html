@@ -237,7 +237,7 @@
                     return("have no data")
                 }
                 else{
-                    let url='http://192.168.1.103:3000/api/attractions?page='+nextPage
+                    let url='/api/attractions?page='+nextPage
                     delay(1)
                     let data= await fetch(url);
                     data= await data.json();
@@ -271,7 +271,7 @@
                     return("no")
                 }
                 else{
-                    let url='http://192.168.1.103:3000/api/attractions?page='+nextPage+"&keyword="+keyword
+                    let url='/api/attractions?page='+nextPage+"&keyword="+keyword
                     let data= await fetch(url);
                     data= await data.json();
                     my_result=data.data
@@ -294,7 +294,7 @@
           
             
             
-            const url_view_api='http://192.168.1.103:3000/api/attractions?page=0'
+            const url_view_api='/api/attractions?page=0'
 
 
 
@@ -311,7 +311,7 @@
                 while (node.firstChild){
                     node.removeChild(node.firstChild)
                 }
-                let url='http://192.168.1.103:3000/api/attractions?page=0'
+                let url='/api/attractions?page=0'
                 getData(url);
                 nextPage=1;
                 return("no tigger")
@@ -322,7 +322,7 @@
                     node.removeChild(node.firstChild)
                 }
                 console.log(keyword)
-                let url='http://192.168.1.103:3000/api/attractions?page=0&keyword='+keyword
+                let url='/api/attractions?page=0&keyword='+keyword
                 getdata_keyword(url,keyword);
                 
             }
