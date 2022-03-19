@@ -48,7 +48,7 @@
                 font-family:'Noto Sans TC',serif;flex:1;justify-self: end;text-align:center;color:#666666;
             }
             .topbox{
-                width: 1200px; margin-right: auto;margin-left: auto;margin-top: 1%; display: flex;
+                width: 1200px; margin-right: auto;margin-left: auto;margin-top: 1%; display: flex;margin-buttom:2%; 
                 
             }
             .picbox{
@@ -91,7 +91,7 @@
                 font-family:'Noto Sans TC',serif;background-color: #448899;color: #FFFFFF;width: 150px; height:36px ; border: 0px; border-radius: 5px;font-size: 1rem;
             }
             .block{
-                display: inline-block;
+                display: inline-block;height:28px;
             }
             .name{
                 font-family:'Noto Sans TC',serif;font-size:1.5rem;color: #666666;font-weight: bolder; margin-bottom: 1%;
@@ -125,7 +125,6 @@
             .mypic button{
                 color: black;
                 position: absolute;
-                
                 font-size: 25px;
                 font-weight: bold;
                 weight:36px;
@@ -165,6 +164,12 @@
             .space2{
                 display:none;
             }
+            #line{
+                color="#E8E8E8"  width=1200px;margin-top:1.7%; 
+            }
+            #topline{
+                color="#E8E8E8" width=100%; margin-top:10px; SIZE=20px; 
+            }
             @media screen and (max-width:1200px){
                 .NavigationBar{width:90%;}
                 .NBtitle{flex:6;}
@@ -202,6 +207,7 @@
             }
             }
 
+
         </style>
         <script type="text/javascript">
             function change(){
@@ -231,7 +237,7 @@
                     </div>
                 </div>
             </div>
-            <hr  id="line"color="#E8E8E8"  width=1200px >
+            <hr  id="topline"color="#E8E8E8"   >
             <div class="topbox">
                 <div class="picbox" id="picbox">
                     <div class="mypic" id="mypic">
@@ -342,12 +348,15 @@
         let mypic=document.getElementById("mypic");
         imgindex.style.left=(mypic.offsetWidth - imgindex.offsetWidth)/2+"px";
         let first=document.querySelector("#index0");
-        first.style.backgroundColor="black";
+        first.style.backgroundColor="black";    
+        let  pichight =document.getElementById("mypic").offsetHeight
+        console.log(pichight)
+    
         
         
     }
     let mypic=0
-   
+
     
     let pidwid=0;
     let mixscreen=0;
@@ -366,7 +375,6 @@
     else{
         pidwid=410;
     }
-    
 
    
     left_btn.onclick=function(){
