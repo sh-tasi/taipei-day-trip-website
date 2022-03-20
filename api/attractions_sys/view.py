@@ -6,20 +6,17 @@ attractions_sys = Blueprint('attractions_sys',__name__,)
 def search_key(page):
     sql_select_key="SELECT `id`,`name`,`category`,`description`,`address`,`transport`,`mrt`,`latitude`,`longitude`,`images` FROM `TAIPEI_VIEW`WHERE `name` like %s LIMIT "   
     sql_page=12*int(page)
-    print(sql_page)
     sql=sql_select_key+" "+str(sql_page)+","+"12"
     return(sql)
 def view_select(page):
     sql_select="SELECT  `id`,`name`,`category`,`description`,`address`,`transport`,`mrt`,`latitude`,`longitude`,`images` FROM  `TAIPEI_VIEW` LIMIT "
     sql_page=12*page
     sql=sql_select+" "+str(sql_page)+","+"12"
-    print(sql)
     return(sql)
 @attractions_sys.route('/attractions',methods=["GET"])
 def attractions_search():
     page=request.args.get("page","0")
     keyword=request.args.get("keyword","*")
-    print(page)
     mydb = mysql.connector.connect(
     host='localhost',
     port='3306',
@@ -157,7 +154,6 @@ def attractions_search():
         keyword_sql=["%"+keyword+"%"]
         mycursor.execute(sql_count,keyword_sql)
         myresult_page_count=mycursor.fetchall()
-        print(myresult_page_count)
         page_max=myresult_page_count[0][0]/12   
         page_max=math.ceil(page_max)-1
         page_int=int(page)
@@ -165,7 +161,6 @@ def attractions_search():
         # sql="SELECT `id` FROM `TAIPEI_VIEW` WHERE `name` like %s LIMIT 12 OFFSET 2 "
             sql=search_key(page)
             keyword_sql=["%"+keyword+"%"]
-            print(keyword_sql)
             mycursor.execute(sql,keyword_sql)
             myresult_key=mycursor.fetchall()
             view_key_data=[]
@@ -183,10 +178,7 @@ def attractions_search():
             return(view_page_js)
         else :
             sql=search_key(page)
-            print(sql)
-            print("H")
-            keyword_sql=["%"+keyword+"%"]
-            print(keyword_sql)
+            keyword_sql=["%"+keyword+"%"]   
             mycursor.execute(sql,keyword_sql)
             myresult_key=mycursor.fetchall()
             view_key_data=[]
@@ -222,7 +214,6 @@ def attraction_id_search(attractionID):
         images_list=images.split(',')
         data_resoponse["images"]=images_list
         data_resoponse_data={'data':data_resoponse}
-        print(data_resoponse_data)
         data_resoponse_js=jsonify(data_resoponse_data)
         mycursor.close()
         mydb.close()
@@ -231,9 +222,7 @@ def attraction_id_search(attractionID):
         sql_count="SELECT count(*) FROM `TAIPEI_VIEW`"
         mycursor.execute(sql_count)
         myresult=mycursor.fetchone()
-        print(myresult)
         view_count=myresult[0]
-        print(view_count)
         response_body={
         "error":"true",
         "message":"景點id超出範圍,目前共有"+str(view_count)+"個資料"

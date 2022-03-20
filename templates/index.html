@@ -9,7 +9,7 @@
                 font-style: normal;
                 font-weight: 700;
                 src:url("https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap&subset=chinese-traditional"),
-              }
+            }
             html{
                 height:100%;
                 margin:0;
@@ -148,6 +148,11 @@
 
         </style>
         <script type="text/javascript">
+            function delay(n){
+                return new Promise(function(resolve){
+                    setTimeout(resolve,n*1000);
+                    });
+            }
             const OAA=document.querySelector('.COPYRIGHT')
             nextPage=0;
             async function getData(url){
@@ -159,15 +164,18 @@
                     mrt=my_result[i].mrt
                     category=my_result[i].category
                     images=my_result[i].images
+                    id=my_result[i].id
+                    
                     image=images[0]
                     
-                    addElement(image,name,mrt,category)
+                    addElement(image,name,mrt,category,id)
                 }
             }
-            function addElement(img,view_name,mrt,category){
+            function addElement(img,view_name,mrt,category,id){
                 parentbox=document.getElementById("parent-box")
                 let box= document.createElement("div");
                 box.setAttribute("class","box");
+                box.setAttribute("onclick","location.href='attraction/" + id+ "';");
                 let newimg=document.createElement("img");
                 newimg.setAttribute("src",img);
                 box.appendChild(newimg);
@@ -208,11 +216,12 @@
                         mrt=my_result[i].mrt
                         category=my_result[i].category
                         images=my_result[i].images
+                        id=my_result[i].id
                         image=images[0]
                         if (mrt=="no data"){
                             mrt="士林"
                         }
-                        addElement(image,name,mrt,category)
+                        addElement(image,name,mrt,category,id)
                     }
                     console.log(my_result)
                     nextPage=data.nextPage;
@@ -228,7 +237,8 @@
                     return("have no data")
                 }
                 else{
-                    let url='http://18.232.215.227:3000/api/attractions?page='+nextPage
+                    let url='/api/attractions?page='+nextPage
+                    delay(1)
                     let data= await fetch(url);
                     data= await data.json();
                     my_result=data.data
@@ -240,10 +250,12 @@
                         }
                         category=my_result[i].category
                         images=my_result[i].images
+                        id=my_result[i].id
                         image=images[0]
                             
-                        addElement(image,name,mrt,category)
+                        addElement(image,name,mrt,category,id)
                     }
+                    this.btnDisable=false
                     nextPage=data.nextPage;
                     if (nextPage==null){
                         page=page+1
@@ -259,7 +271,7 @@
                     return("no")
                 }
                 else{
-                    let url='http://18.232.215.227:3000/api/attractions?page='+nextPage+"&keyword="+keyword
+                    let url='/api/attractions?page='+nextPage+"&keyword="+keyword
                     let data= await fetch(url);
                     data= await data.json();
                     my_result=data.data
@@ -269,9 +281,10 @@
                         mrt=my_result[i].mrt
                         category=my_result[i].category
                         images=my_result[i].images
+                        id=my_result[i].id
                         image=images[0]
                         
-                        addElement(image,name,mrt,category)
+                        addElement(image,name,mrt,category,id)
                     }
                     nextPage=data.nextPage;
                 }
@@ -281,7 +294,7 @@
           
             
             
-            const url_view_api='http://18.232.215.227:3000/api/attractions?page=0'
+            const url_view_api='/api/attractions?page=0'
 
 
 
@@ -298,7 +311,7 @@
                 while (node.firstChild){
                     node.removeChild(node.firstChild)
                 }
-                let url='http://18.232.215.227:3000/api/attractions?page=0'
+                let url='/api/attractions?page=0'
                 getData(url);
                 nextPage=1;
                 return("no tigger")
@@ -309,7 +322,7 @@
                     node.removeChild(node.firstChild)
                 }
                 console.log(keyword)
-                let url='http://18.232.215.227:3000/api/attractions?page=0&keyword='+keyword
+                let url='/api/attractions?page=0&keyword='+keyword
                 getdata_keyword(url,keyword);
                 
             }
