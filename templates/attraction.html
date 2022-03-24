@@ -21,7 +21,7 @@
                 flex-direction: column;
                 font-size: 16px;
             }
-            a {text-decoration:none;}
+            a {text-decoration:none;color:#666666;}
             a:visited {color:#666666;}
             .CS{
                 flex-grow: 1;
@@ -48,7 +48,7 @@
                 font-family:'Noto Sans TC',serif;flex:1;justify-self: end;text-align:center;color:#666666;
             }
             .topbox{
-                width: 1200px; margin-right: auto;margin-left: auto;margin-top: 1%; display: flex;margin-buttom:2%; 
+                width: 1200px; margin-right: auto;margin-left: auto;margin-top: 1%; display: flex; margin-bottom:2%; 
                 
             }
             .picbox{
@@ -91,7 +91,7 @@
                 font-family:'Noto Sans TC',serif;background-color: #448899;color: #FFFFFF;width: 150px; height:36px ; border: 0px; border-radius: 5px;font-size: 1rem;
             }
             .block{
-                display: inline-block;height:28px;
+                display: inline-block;height:6px;
             }
             .name{
                 font-family:'Noto Sans TC',serif;font-size:1.5rem;color: #666666;font-weight: bolder; margin-bottom: 1%;
@@ -127,8 +127,8 @@
                 position: absolute;
                 font-size: 25px;
                 font-weight: bold;
-                weight:36px;
-                height:36px
+                width:36px;
+                height:36px;
                 text-align:center;
                 display: inline;
                 border-radius: 50px;
@@ -165,15 +165,144 @@
                 display:none;
             }
             #line{
-                color="#E8E8E8"  width=1200px;margin-top:1.7%; 
+                color:"#E8E8E8" ; width:1200px;margin-top:1.7%; 
             }
             #topline{
-                color="#E8E8E8" width=100%; margin-top:10px; SIZE=20px; 
+                color:"#E8E8E8"; width:100%; margin-top:10px; SIZE:20px; 
             }
+            #date{border:0px;height:27px;width:193px;padding:5px;font-size:16px;background:#FFF}
+            #controls-visibleday {
+                position: relative;
+                display: inline-block;
+                width:15px;
+                height: 15px;
+                background-color:#fff;
+                border-radius:50%;
+                border: 2px solid #fff;
+                top:3px;
+            }
+            #controls-visiblenight{
+                position: relative;
+                display: inline-block;
+                width:15px;
+                height: 15px;
+                background-color:#fff;
+                border-radius:50%;
+                border: 2px solid #fff;
+                top:3px;
+            }
+            input[type="radio"]{
+                display:none;
+            }
+            #day:checked + #controls-visibleday{
+                background-color:#448899;
+            }
+            #night:checked + #controls-visiblenight{
+                background-color:#448899;
+            }
+
+
+
+
+            .bg{
+                background-color: #000;
+                width: 100%;
+                height: 100%;
+                top: 0px;
+                position: fixed;
+                opacity: 0.3;
+                -webkit-opacity: 0.3;
+                -moz-opacity: 0.3;
+                display:none;
+                
+            }
+
+            .login{
+                position: absolute;
+                width: 340px;
+                height: 275px;
+                z-index: 9999;
+                background-color: white;
+                top:80px;
+                margin-left: 0;
+                margin-top: 0;
+                border: 1px solid gray;
+                overflow:hidden;
+                border-radius:5px;
+                display:none;
+            }
+            #register{
+                position: absolute;
+                width: 340px;
+                height: 334px;
+                z-index: 9999;
+                background-color: white;
+                top:80px;
+                margin-left: 0;
+                margin-top: 0;
+                border: 1px solid gray;
+                overflow:hidden;
+                border-radius:5px;
+                display:none;
+
+            }
+            .login-title{
+                font-family:'Noto Sans TC';text-align:center;font-size:24px;color:#666666 ;margin-top:10px;
+            }
+            .sign-text{
+                font-family:'Noto Sans TC';border:1px #CCCCCC solid;padding:10px ;font-size:16px;margin:auto;width:90%;border-radius:5px;
+            }
+            .sign-button{
+                font-family:'Noto Sans TC';border:1px #CCCCCC solid;padding:7px ;font-size:19px;width:314px;height:50px;border-radius:5px;color:#FFFFFF;background:#448899;font-weight:100;
+            }
+            .sign-text-div{
+                margin-left:15px;margin-top:10px;
+            }
+            .sign-button-div{
+                margin-left:15px;margin-top:10px;
+            }
+            .sign-connect{
+                font-family:'Noto Sans TC';margin-top:5px;width:314px;height:50px;color:#666666;text-align:center;
+            }
+            .sign-connect a{
+                color:#666666;
+            }
+            .message{
+                font-family:'Noto Sans TC';color:#666666;margin-top:2px;text-align:center;
+            }
+            #closeBtnforlogin{
+                position:absolute;
+                top:12px;
+                right:15px;
+                border:0px;
+                width:14px;
+                height:14px;
+                color:#666666;
+               
+                font-family:'Noto Sans TC';
+            }
+            #closeBtnforreg{
+                position:absolute;
+                top:12px;
+                right:15px;
+                border:0px;
+                width:14px;
+                height:14px;
+                color:#666666;
+                
+                font-family:'Noto Sans TC';   
+            }
+            .decorator{
+                width:340px;height:10px;background-image:url("/static/images/decorator.png");font-size:12px;margin-top:-5px;
+            }
+            #logoutitem{
+                display:none;
+            }
+
+
             @media screen and (max-width:1200px){
                 .NavigationBar{width:90%;}
                 .NBtitle{flex:6;}
-                .SPACE{}
                 .topbox{width:90%; }
                 .mypic{width:400px;}
                 .pic{width:400px;aspect-ratio:1.3/1;}
@@ -202,10 +331,13 @@
                 .bottom-box{
                     width:95%;
                 }
+                .bg{
+                    height: 640px;
+                }
                 
 
             }
-            }
+            
 
 
         </style>
@@ -233,7 +365,8 @@
                     <div class="NBtitle">台北一日遊</div>
                     <div class="NBitem">
                         <div class="item"><a href="/">預定行程</a></div>
-                        <div class="item"><a href="/">登入/註冊</a></div>
+                        <div class="item" id="loginitem"><a id="btlogin"href="javascript:void(0)">登入</a>/<a id="btresg"href="javascript:void(0)">註冊</a></div>
+                        <div class="item" id="logoutitem"><a id="btlogout"href="javascript:void(0)">登出系統</a></div>
                     </div>
                 </div>
             </div>
@@ -263,7 +396,7 @@
                         <div class="checkin">訂購導覽行程</div>
                         <div class="checkintrod">以此景點為中心的一日行程，帶您探索城市角落故事</div>
                         <div class="checkday">選擇日期: <input id="date" type="date"></div>
-                        <div class="time">選擇時間: <input type="radio" id="day"name="day" value=1 checked onclick="change()">上半天 <input type="radio" id="night"name="day" value=2 onclick="change()">下半天</div>
+                        <div class="time">選擇時間:&nbsp;&nbsp;<input type="radio" id="day"name="day" class="daynight" value=1 checked onclick="change()"> <label id="controls-visibleday"class="controls-visible" for="day"></label>&nbsp;上半天&nbsp;&nbsp;&nbsp;<input type="radio" id="night"name="day" class="daynight" value=2 onclick="change()"><label id="controls-visiblenight"class="controls-visible" for="night"></label>&nbsp;下半天</div>
                         <div class="much">導覽費用: 新台幣 <span id="ntw">2000</span> 元</div>
                         <div class="start"><a href="/"><button class="start-bt">開始預訂行程</button></div></a>
                         <div class="block">   </div>
@@ -281,6 +414,36 @@
                     <div class="bt-boxtitle" id="transport-title">交通方式:</div>
                     <div  id="transport">捷運站名：忠孝復興站4號出口1.公車：204、212、212直、232、232副、262、262(區間)、278、299、521、605、605(副)、605(新台五線)、667、903、忠孝新幹線至頂好市場站 2.車位：太平洋崇光百貨地下停車場或市民大道附近地下停車場</div>
                 </div>
+            </div>
+            <div id="bg" class="bg">&thinsp;</div>
+            <div id="login" class="login">
+                <div class="decorator" >&thinsp;</div>
+                <div class="login-title" id="login-title">
+                    <div>登入會員帳號</div>
+                    <a id="closeBtnforlogin" href="javascript:void(0)">✕</a>
+                </div>
+                <div class="signsystembox">
+                        <div class="sign-text-div"><input class="sign-text" type="text" id="email" placeholder="輸入電子信箱"></div>
+                        <div class="sign-text-div"><input class="sign-text" type="text" id="password" placeholder="輸入密碼"></div>
+                        <div class="sign-button-div"><button id="signbutton"class="sign-button">登入帳戶</button></div>
+                        <div class="message" id="longinmessage"></div>
+                </div>
+                <div class="sign-connect">還沒有帳戶？<a id="changeregister" href="javascript:void(0)">點此註冊</a></div>
+            </div>
+            <div id="register">
+                <div class="decorator" >&thinsp;</div>
+                <div class="login-title" id="login-title">
+                    <div>註冊會員帳號</div>
+                    <a id="closeBtnforreg" href="javascript:void(0)">✕</a>
+                </div>
+                <div class="signsystembox">
+                        <div class="sign-text-div"><input class="sign-text" type="text" id="regusername" placeholder="輸入姓名"></div>
+                        <div class="sign-text-div"><input class="sign-text" type="text" id="regemail" placeholder="輸入電子信箱"></div>
+                        <div class="sign-text-div"><input class="sign-text" type="text" id="regpassword" placeholder="輸入密碼"></div>
+                        <div class="sign-button-div"><button id="regbutton"class="sign-button">註冊帳戶</button></div>
+                        <div class="message" id="regmessage"></div>
+                </div>
+                <div class="sign-connect">已經有帳戶了？<a id="changelogin" href="javascript:void(0)">點此登入</a></div>
             </div>
         </div>
         <div class="copy"><div class="COPYRIGHT" id="COPYRIGHT">COPYRIGHT © 2021 台北一日遊</div>
@@ -415,11 +578,139 @@
         }
     
     }
+    function init(){
+        let screen=document.documentElement.scrollWidth 
+        let login=document.getElementById("login");
+        let register=document.getElementById("register");
+        let marginpx=(screen-340) /2;
+        login.style.marginLeft=marginpx+"px";
+        register.style.marginLeft=marginpx+"px";
+        let changeregister=document.getElementById("changeregister");
+        let changelogin=document.getElementById("changelogin");
+        let closeBtnforlogin=document.getElementById("closeBtnforlogin");
+        let closeBtnforreg=document.getElementById("closeBtnforreg");
+        let btlogin=document.getElementById("btlogin");
+        let btresg=document.getElementById("btresg");
+        let bg=document.getElementById("bg");
+        let signbutton=document.getElementById("signbutton");
+        let regbutton=document.getElementById("regbutton");
+        let longinmessage=document.getElementById("longinmessage");
+        let loginitem=document.getElementById("loginitem");
+        let logoutitem=document.getElementById("logoutitem");
+        let btlogout=document.getElementById("btlogout");
+        changeregister.onclick=function(){
+            login.style.display="none";
+            register.style.display="block"; 
+            longinmessage.innerHTML=""          
+        }
+        changelogin.onclick=function(){
+            login.style.display="block";
+            register.style.display="none";
+            longinmessage.innerHTML=""
+        }
+        closeBtnforlogin.onclick=function(){
+            login.style.display="none";
+            bg.style.display="none";
+        }
+        closeBtnforreg.onclick=function(){
+            register.style.display="none";
+            bg.style.display="none";
+        }
+        btlogin.onclick=function(){
+            login.style.display="block";
+            bg.style.display="block";
+        }
+        btresg.onclick=function(){
+            register.style.display="block";
+            bg.style.display="block";
+        }
+        signbutton.onclick=function(){
+            let email=document.getElementById("email").value
+            let password=document.getElementById("password").value
+            let data = {
+                'email':email,
+                'password':password
+            }
+            let data_js=JSON.stringify(data);
+            let req=new XMLHttpRequest();
+            req.open("PATCH","/api/user");
+            req.setRequestHeader("Content-type","application/json");
+            req.onload=function(){
+                let mydata= JSON.parse(req.response)
+                console.log(mydata)
+                console.log(mydata.ok)
+                if (mydata.error==true){
+                    longinmessage.innerHTML=mydata.message
+                }
+                else {
+                    window.location.reload();
+                }
+            }
+            req.send(data_js);
+
+        }
+        regbutton.onclick=function(){
+            let username=document.getElementById("regusername").value
+            let email=document.getElementById("regemail").value
+            let password=document.getElementById("regpassword").value
+            let data = {
+                'username':username,
+                'email':email,
+                'password':password
+            }
+            let data_js=JSON.stringify(data);
+            let req=new XMLHttpRequest();
+            req.open("POST","/api/user");
+            req.setRequestHeader("Content-type","application/json");
+            req.onload=function(){
+                let mydata= JSON.parse(req.response)
+                if (mydata.error==true){
+                    regmessage.innerHTML=mydata.message
+                }
+                else {
+                    regmessage.innerHTML="註冊成功"
+                }
+            }
+            req.send(data_js);
+            
+        }
+        btlogout.onclick=function(){
+            let req=new XMLHttpRequest();
+            req.open("DELETE","/api/user");
+            req.onload=function(){
+                let mydata= JSON.parse(req.response)
+                if (mydata.ok==true){
+                    window.location.replace(location.href)
+                }
+            }
+            req.send();
+        }
+        function getuser(){
+            let req=new XMLHttpRequest();
+            req.open("GET","/api/user");
+            req.onload=function(){
+                let mydata= JSON.parse(req.response)
+                console.log(mydata)
+                if(mydata.data==null){
+                    console.log("321")
+                    
+                }
+                else{
+                    loginitem.style.display="none";
+                    logoutitem.style.display="block";
+                }
+            }
+            req.send();
+
+        }
+        
+        getuser();
+    }
     
  
 
     
-    
+    init();
     getdata();
     </script>     
 </html>
