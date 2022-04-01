@@ -22,6 +22,8 @@
             }
             a {text-decoration:none;color:#666666;}
             a:visited {color:#666666;}
+            .NBtitle a{text-decoration:none;color:#448899; }
+            .NBtitle a:visitedcolor:{color:#448899;}
             .CS{
                  flex-grow: 1;
             }
@@ -33,7 +35,7 @@
                 align-items: center; background-color:#FFFFFF;
             }
             .NB-SPACE{
-                position:fixed;width:100%;background-color:#FFFFFF; top:0%;
+                position:fixed;width:100%;background-color:#FFFFFF; top:0%;z-index: 7;
             }
             .NBtitle{
                 font-family:'Noto Sans TC',serif;flex:8;justify-self:start;font-size:1rem; font-size:1.5rem;color:#448899;font-weight: bolder;
@@ -330,7 +332,6 @@
             async function getdata2(){
                 const nameElement = document.getElementsByName('keyword');
                 const keyword = nameElement[0].value;
-                console.log(keyword);
                 if (nextPage==null){
                     return("have no data")
                 }
@@ -431,7 +432,7 @@
             <div class="SPACE"></div>
             <div class="NB-SPACE">
                 <div class="NavigationBar">  
-                    <div class="NBtitle">台北一日遊</div>
+                    <div class="NBtitle"><a href="/">台北一日遊</a></div>
                     <div class="NBitem">
                         <div class="item"><a id="reserve"href="javascript:void(0)">預定行程</a></div>
                         <div class="item" id="loginitem"><a id="btlogin"href="javascript:void(0)">登入</a>/<a id="btresg"href="javascript:void(0)">註冊</a></div>
@@ -513,6 +514,7 @@
             let loginitem=document.getElementById("loginitem");
             let logoutitem=document.getElementById("logoutitem");
             let btlogout=document.getElementById("btlogout");
+            let reserve=document.getElementById("reserve");
             changeregister.onclick=function(){
                 login.style.display="none";
                 register.style.display="block"; 
@@ -538,6 +540,22 @@
             btresg.onclick=function(){
                 register.style.display="block";
                 bg.style.display="block";
+            }
+            reserve.onclick=function(){
+                let req=new XMLHttpRequest();
+                req.open("GET","/api/user");
+                req.onload=function(){
+                    let mydata= JSON.parse(req.response)
+                    console.log(mydata)
+                    if(mydata.data==null){
+                        login.style.display="block";
+                        bg.style.display="block";                 
+                    }
+                    else{
+                        window.location = '/booking';
+                    }
+                }
+                req.send();
             }
             signbutton.onclick=function(){
                 let email=document.getElementById("email").value
@@ -605,9 +623,8 @@
                 req.open("GET","/api/user");
                 req.onload=function(){
                     let mydata= JSON.parse(req.response)
-                    console.log(mydata)
                     if(mydata.data==null){
-                        console.log("321")
+                        
                         
                     }
                     else{

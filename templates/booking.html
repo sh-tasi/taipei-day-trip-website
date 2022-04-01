@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+        <title>台北一日遊</title>
+        <style type="text/css">
+            @font-face {
+                font-family:'Noto Sans TC';
+                font-style: normal;
+                font-weight: 700;
+                src:url("https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap&subset=chinese-traditional"),
+            }
+            html{
+                height:100%;
+                margin:0;
+            }
+            body{
+                height: 100%;
+                margin:0;
+                display: flex; 
+                flex-direction: column;
+            }
+            a {text-decoration:none;color:#666666;}
+            a:visited {color:#666666;}
+            .CS{
+                
+            }
+            .NBtitle a{text-decoration:none;color:#448899; }
+            .NBtitle a:visitedcolor:{color:#448899;}
+            .SPACE{
+                height:32px;
+            }
+            .NavigationBar{
+                font-family:'Noto Sans TC',serif;display:flex;width:1200px;justify-self: center;margin:auto;  font-size:16px;justify-content: center; 
+                align-items: center; background-color:#FFFFFF;
+            }
+            .NB-SPACE{
+                position:fixed;width:100%;background-color:#FFFFFF; top:0%; z-index: 7;
+            }
+            .NBtitle{
+                font-family:'Noto Sans TC',serif;flex:8;justify-self:start;font-size:1rem; font-size:1.5rem;color:#448899;font-weight: bolder;
+                
+            } 
+            .NBitem{
+                font-family:'Noto Sans TC',serif;display:flex;flex:1.2;justify-self:end;font-size:1rem; color:#666666;font-weight: bold;
+                
+            }
+            .item{
+                font-family:'Noto Sans TC',serif;flex:1;justify-self: end;text-align:center;color:#666666;
+            }
+
+           .copy{
+            width:100% ;height:100%;background-color: #757575;  flex-grow: 1;
+            
+            }
+            .box-content{
+            flex-grow: 1;
+            }
+            .COPYRIGHT{
+            font-family:'Noto Sans TC';text-align:center;  font-size:16px; color:#FFFFFF;font-weight: bolder;padding:20px;
+            }
+            
+            .bg{
+                background-color: #000;
+                width: 100%;
+                height: 100%;
+                top: 0px;
+                position: fixed;
+                opacity: 0.3;
+                -webkit-opacity: 0.3;
+                -moz-opacity: 0.3;
+                display:none;
+                
+            }
+
+            .login{
+                position: absolute;
+                width: 340px;
+                height: 275px;
+                z-index: 9999;
+                background-color: white;
+                top:80px;
+                margin-left: 0;
+                margin-top: 0;
+                border: 1px solid gray;
+                overflow:hidden;
+                border-radius:5px;
+                display:none;
+            }
+            #register{
+                position: absolute;
+                width: 340px;
+                height: 334px;
+                z-index: 9999;
+                background-color: white;
+                top:80px;
+                margin-left: 0;
+                margin-top: 0;
+                border: 1px solid gray;
+                overflow:hidden;
+                border-radius:5px;
+                display:none;
+
+            }
+            .login-title{
+                font-family:'Noto Sans TC';text-align:center;font-size:24px;color:#666666 ;margin-top:10px;
+            }
+            .sign-text{
+                font-family:'Noto Sans TC';border:1px #CCCCCC solid;padding:10px ;font-size:16px;margin:auto;width:90%;border-radius:5px;
+            }
+            .sign-button{
+                font-family:'Noto Sans TC';border:1px #CCCCCC solid;padding:7px ;font-size:19px;width:314px;height:50px;border-radius:5px;color:#FFFFFF;background:#448899;font-weight:100;
+            }
+            .sign-text-div{
+                margin-left:15px;margin-top:10px;
+            }
+            .sign-button-div{
+                margin-left:15px;margin-top:10px;
+            }
+            .sign-connect{
+                font-family:'Noto Sans TC';margin-top:5px;width:314px;height:50px;color:#666666;text-align:center;
+            }
+            .sign-connect a{
+                color:#666666;
+            }
+            .message{
+                font-family:'Noto Sans TC';color:#666666;margin-top:2px;text-align:center;
+            }
+            #closeBtnforlogin{
+                position:absolute;
+                top:12px;
+                right:15px;
+                border:0px;
+                width:14px;
+                height:14px;
+                color:#666666;
+               
+                font-family:'Noto Sans TC';
+            }
+            #closeBtnforreg{
+                position:absolute;
+                top:12px;
+                right:15px;
+                border:0px;
+                width:14px;
+                height:14px;
+                color:#666666;
+                
+                font-family:'Noto Sans TC';   
+            }
+            .decorator{
+                width:340px;height:10px;background-image:url("/static/images/decorator.png");font-size:12px;margin-top:-5px;
+            }
+            #logoutitem{
+                display:none;
+            }
+            #topline{
+                color:"#E8E8E8"; width:100%; margin-top:10px; SIZE:20px; 
+            }
+
+
+            #hello{
+                font-family:'Noto Sans TC';
+                color:#666666;
+                margin-top:1.2rem;  
+                width:1050px;
+                margin-right:auto;
+                margin-left:auto;
+                font-size:19px;
+                font-weight:700;
+                margin-bottom:1rem;
+            }
+
+
+
+            .booking{
+                width:1050px;
+                margin-top:1rem;
+                margin-left:auto;
+                margin-right:auto;
+                font-family:'Noto Sans TC';
+                color:#666666;
+                display:flex;
+                font-size:16px;
+                margin-bottom:1rem;
+                position:relative;
+            }
+            img{
+                
+                width: 266px;
+                
+                aspect-ratio:1.3/1 ;
+            }
+
+            .bookimg{
+                margin-bottom:1rem;
+            }
+            .bookcontent{
+                margin-left:2rem;margin-bottom:1.5rem;
+            }
+            .booktitle{
+                color:#448899;margin-bottom:1.5rem;font-weight: 700;
+            }
+            .booktext{
+                margin-top:13px;;
+            }
+            .bolder{
+                font-weight:700;
+            }
+            .textline{
+                color:"#E8E8E8"; width:1200px; margin-top:10px; SIZE:20px; display:block;
+            }
+            .bookcontact{
+                width:1050px;
+                margin-top:1rem;
+                margin-left:auto;
+                margin-right:auto;
+                font-family:'Noto Sans TC';
+                color:#666666;
+                font-size:16px;
+                margin-bottom:1rem;
+                
+            }
+            .contactText{
+                width:200px;
+                padding:7px;
+                font-size: 16px;
+                border: 1px solid #E8E8E8;
+                border-radius: 5px;
+            }
+            .bookbt{
+                font-family:'Noto Sans TC'; background-color: #448899;color: #FFFFFF;width: 173px;height: 36px;border-radius: 5px;font-size: 16px;border: 0px;
+            }
+            .booktextR2{
+                position:absolute;
+                right:1px;
+                top:40px;       
+            }
+            .booktextR{
+                position:absolute;
+                right:1px;
+                font-size: 16px;
+                font-weight: 700;
+
+            }
+            .payforbook{
+                position:relative;
+                width:1050px;
+                height: 200px;
+                margin-top:1rem;
+                margin-left:auto;
+                margin-right:auto;
+                font-family:'Noto Sans TC';
+                color:#666666;
+                font-size:16px;
+                margin-bottom:1rem;
+               
+            }
+            .delet{
+                background-image:url("/static/images/icon_delete.png"); background-repeat: no-repeat; background-size: 30px 30px;
+                position:absolute;
+                
+                width:30px;
+                height:30px;
+                right:10px;
+                background-color:#FFFFFF;
+                border:0px;
+            }
+            @media screen and (max-width:1200px){
+                .NavigationBar{width:90%;}
+                .NBtitle{flex:1.5;}
+                .NBitem{flex:0.5;}
+                #hello{width:95%;}
+                .booking{width:95%;margin:auto;margin-top:1rem;margin-bottom:1rem;}
+                .textline{width:95%;margin:auto;}
+                .bookimg{flex:1;}
+                .bookcontent{margin-left:2rem;margin-bottom:2rem;flex:3;}
+                .bookcontact{width:95%;margin-top:2rem;margin-bottom:2rem;}
+                .payforbook{width:95%;margin-top:2rem;margin-bottom:2rem;height:100px;}
+                .delet{}
+
+                img{width: 266px;aspect-ratio:1.3/1 ;}
+            }
+
+            @media screen and (max-width:600px){
+                .NavigationBar{width:90%;}
+                .NBtitle{flex:1;}
+                #hello{width:95%;}
+                .booking{width:95%;margin:auto;margin-top:1rem;margin-bottom:1rem;display:block;}
+                .textline{width:95%;margin:auto;}
+                .bookcontent{margin-left:0;margin-bottom:2rem;}
+                .bookcontact{width:95%;margin-top:2rem;margin-bottom:2rem;}
+                .payforbook{width:95%;margin-top:2rem;margin-bottom:2rem;height:100px;}
+                .delet{bottom:0px;}
+
+                img{width: 100%;aspect-ratio:1.3/1 ;}
+                
+        </style>
+        <script>
+            function checkCardNumber(){
+                let v=this.value
+                console.log(v)
+            }
+        </script>
+        <body>
+            <div class="CS">
+                <div class="SPACE"></div>
+                <div class="NB-SPACE">
+                    <div class="NavigationBar">  
+                        <div class="NBtitle"><a href="/">台北一日遊</a></div>
+                        <div class="NBitem">
+                            <div class="item"><a id="reserve"href="/booking">預定行程</a></div>
+                            <div class="item" id="loginitem"><a id="btlogin"href="javascript:void(0)">登入</a>/<a id="btresg"href="javascript:void(0)">註冊</a></div>
+                            <div class="item" id="logoutitem"><a id="btlogout"href="javascript:void(0)">登出系統</a></div>
+                        </div>
+                    </div>
+                </div>
+                <hr  id="topline"color="#E8E8E8"   >
+            </div>
+            <div id="hello" class="hello">
+                您好，<span id="HelloUser">Yakko</span>，待預定的行程如下：
+            </div>
+            <div class="booking" id="booking">
+                <div class="bookimg" id="bookimg">
+                    <img id ="mybookimg"src="" >
+                </div>
+                <div class="bookcontent" id="bookcontent">
+                    <div class="booktitle" id="booktitle">
+                        台北一日遊：<span id="bookName"></span>
+                    </div>
+                    <div class="booktext" >
+                        <span class="bolder">日期：</span><span id="bookdate"></span>
+                    </div>
+                    <div class="booktext" >
+                        <span class="bolder">時間：</span><span id="booktime"></span>
+                    </div>
+                    <div class="booktext" >
+                        <span class="bolder">費用：</span><span id="bookprice"></span>
+                    </div>
+                    <div class="booktext" > 
+                        <span class="bolder">地點：</span><span id="bookadress"></span>
+                    </div>
+                    
+                </div>
+                <div><button class="delet" id="bookdelet"></div>
+
+            </div>
+            <hr  class="textline"color="#E8E8E8" id="line1"  >
+            <div class="bookcontact" id="bookcontact">
+                <div style="font-weight:700;font-size:19px">您的聯絡資訊</div>
+                <div class="booktext">聯絡姓名：<input type="text" class="contactText" id="contactuser" value="email"></div>
+                <div class="booktext">聯絡信箱：<input type="text" class="contactText" id="contactemail"></div>
+                <div class="booktext">手機號碼：<input type="text" class="contactText" id="contactphone"></div>
+                <div class="booktext" style="font-weight:700;">請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</div>
+            </div>
+            <hr  class="textline"color="#E8E8E8"  id="line2" >
+            <div class="bookcontact" id="bookpay">
+                <div style="font-weight:700;font-size:19px">信用卡付款資訊</div>
+                <div class="booktext">卡片號碼：<input type="text" class="contactText" Placeholder="****&nbsp;****&nbsp;****&nbsp;****"  maxlength="12" ></div>
+                <div class="booktext">過期時間：<input type="text" class="contactText" Placeholder="MM&nbsp;/&nbsp;YY" maxlength="5"></div>
+                <div class="booktext">驗證號碼：<input type="text" class="contactText" Placeholder="CVV" maxlength="3"></div>
+            </div>
+            <hr  class="textline"color="#E8E8E8"  id="line3" >
+            <div class="payforbook" id="payforbook" >
+                <div class="booktextR">總價：<span id="price">新台幣2500元</span></div>
+                <div class="booktextR2"><button type="submit" class="bookbt" >確認訂購並付款</button></div>
+                <div style="height:100px"></div>
+            </div>
+
+            <div class="copy"><div class="COPYRIGHT" id="COPYRIGHT">COPYRIGHT © 2021 台北一日遊</div>
+            
+        <body>
+        <script>
+            function init(){
+                let screen=document.documentElement.scrollWidth 
+                let loginitem=document.getElementById("loginitem");
+                let logoutitem=document.getElementById("logoutitem");
+                let btlogout=document.getElementById("btlogout");
+                let HelloUser=document.getElementById("HelloUser");
+                let bookName=document.getElementById("bookName");
+                let bookdate=document.getElementById("bookdate");
+                let booktime=document.getElementById("booktime");
+                let bookprice=document.getElementById("bookprice");
+                let bookadress=document.getElementById("bookadress");
+                let bookdelet=document.getElementById("bookdelet");
+                let contactuser=document.getElementById("contactuser");
+                let contactemail=document.getElementById("contactemail");
+                let mybookimg=document.getElementById("mybookimg");
+                let booking=document.getElementById("booking");
+                let bookcontact=document.getElementById("bookcontact");
+                let bookpay=document.getElementById("bookpay");
+                let payforbook=document.getElementById("payforbook");
+                let line1=document.getElementById("line1");
+                let line2=document.getElementById("line2");
+                let line3=document.getElementById("line3");
+                
+                btlogout.onclick=function(){
+                    let req=new XMLHttpRequest();
+                    req.open("DELETE","/api/user");
+                    req.onload=function(){
+                        let mydata= JSON.parse(req.response)
+                        if (mydata.ok==true){
+                            window.location.replace(location.href)
+                        }
+                    }
+                    req.send();
+                }
+                bookdelet.onclick=function(){
+                    let req=new XMLHttpRequest();
+                    req.open("DELETE","/api/booking");
+                    req.onload=function(){
+                        let mydata= JSON.parse(req.response)
+                        if (mydata.ok==true){
+                            window.location.replace(location.href)
+                        }
+                    }
+                    req.send();
+                }
+                function getuser(){
+                    let req=new XMLHttpRequest();
+                    req.open("GET","/api/user");
+                    req.onload=function(){
+                        let mydata= JSON.parse(req.response)
+                        if(mydata.data==null){
+                            document.location.href="/"
+                            
+                        }
+                        else{
+                            myuser=mydata.data
+                            user=myuser.name
+                            email=myuser.email                         
+                            HelloUser.innerHTML=user;
+                            contactuser.value=user;
+                            contactemail.value=email;
+                            loginitem.style.display="none";
+                            logoutitem.style.display="block";
+                        }
+                    }
+                    req.send();
+    
+                }
+                function getbook(){
+                    let req=new XMLHttpRequest();
+                    req.open("GET","/api/booking");
+                    req.onload=function(){
+                        let mydata= JSON.parse(req.response)
+                        if(mydata.data==null){
+                            booking.innerHTML="";
+                            bookcontact.innerHTML="";
+                            bookpay.innerHTML="";
+                            payforbook.innerHTML="";
+                            payforbook.style.height="0px"
+                            line1.style.display="none";
+                            line2.style.display="none";
+                            line3.style.display="none";
+                            booking.innerHTML="目前沒有任何待預訂的行程";
+                        }
+                        else{
+                            let userBook=mydata.data
+                            let myimg=userBook.image
+                            let id=userBook.id
+                            let name=userBook.name
+                            let address=userBook.address
+                            let date=mydata.date
+                            let time=mydata.time
+                            let price=mydata.price
+                            mybookimg.src=myimg
+                            bookName.innerHTML=name
+                            bookdate.innerHTML=date
+                            booktime.innerHTML=time
+                            bookprice.innerHTML=price
+                            bookadress.innerHTML=address
+
+
+                        }
+                    }
+                    req.send();
+                }
+
+                getuser();
+                getbook();
+            }
+            init();
+            
+        </script>
