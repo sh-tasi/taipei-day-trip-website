@@ -23,6 +23,8 @@
             }
             a {text-decoration:none;color:#666666;}
             a:visited {color:#666666;}
+            .NBtitle a{text-decoration:none;color:#448899; }
+            .NBtitle a:visitedcolor:{color:#448899;}
             .CS{
                 flex-grow: 1;
             }
@@ -34,7 +36,7 @@
                 align-items: center; background-color:#FFFFFF;
             }
             .NB-SPACE{
-                position:fixed;width:100%;background-color:#FFFFFF; top:0%;
+                position:fixed;width:100%;background-color:#FFFFFF; top:0%; z-index: 7;
             }
             .NBtitle{
                 font-family:'Noto Sans TC',serif;flex:8;justify-self:start;font-size:1rem; font-size:1.5rem;color:#448899;font-weight: bolder;
@@ -87,7 +89,7 @@
             .start{
                 margin:2% 4% 2% 4%;
             }
-            .start-bt{
+            .startbt{
                 font-family:'Noto Sans TC',serif;background-color: #448899;color: #FFFFFF;width: 150px; height:36px ; border: 0px; border-radius: 5px;font-size: 1rem;
             }
             .block{
@@ -362,9 +364,9 @@
             <div class="SPACE"></div>
             <div class="NB-SPACE">
                 <div class="NavigationBar">  
-                    <div class="NBtitle">台北一日遊</div>
+                    <div class="NBtitle"><a href="/">台北一日遊</a></div>
                     <div class="NBitem">
-                        <div class="item"><a href="/">預定行程</a></div>
+                        <div class="item"><a id="reserve"href="javascript:void(0)">預定行程</a></div>
                         <div class="item" id="loginitem"><a id="btlogin"href="javascript:void(0)">登入</a>/<a id="btresg"href="javascript:void(0)">註冊</a></div>
                         <div class="item" id="logoutitem"><a id="btlogout"href="javascript:void(0)">登出系統</a></div>
                     </div>
@@ -395,10 +397,10 @@
                     <div class="check_in_box">
                         <div class="checkin">訂購導覽行程</div>
                         <div class="checkintrod">以此景點為中心的一日行程，帶您探索城市角落故事</div>
-                        <div class="checkday">選擇日期: <input id="date" type="date"></div>
+                        <div class="checkday">選擇日期: <input id="date" type="date" required><span id="dateAlert" style="color:#FF5D7D"></span></div>
                         <div class="time">選擇時間:&nbsp;&nbsp;<input type="radio" id="day"name="day" class="daynight" value=1 checked onclick="change()"> <label id="controls-visibleday"class="controls-visible" for="day"></label>&nbsp;上半天&nbsp;&nbsp;&nbsp;<input type="radio" id="night"name="day" class="daynight" value=2 onclick="change()"><label id="controls-visiblenight"class="controls-visible" for="night"></label>&nbsp;下半天</div>
                         <div class="much">導覽費用: 新台幣 <span id="ntw">2000</span> 元</div>
-                        <div class="start"><a href="/"><button class="start-bt">開始預訂行程</button></div></a>
+                        <div class="start"><a href="javascript:void(0)"><button id="startbt"class="startbt">開始預訂行程</button></div></a>
                         <div class="block">   </div>
                     </div>
                 </div>
@@ -513,7 +515,7 @@
         let first=document.querySelector("#index0");
         first.style.backgroundColor="black";    
         let  pichight =document.getElementById("mypic").offsetHeight
-        console.log(pichight)
+        
     
         
         
@@ -598,6 +600,9 @@
         let loginitem=document.getElementById("loginitem");
         let logoutitem=document.getElementById("logoutitem");
         let btlogout=document.getElementById("btlogout");
+        let startbt=document.getElementById("startbt");
+        let reserve=document.getElementById("reserve");
+        
         changeregister.onclick=function(){
             login.style.display="none";
             register.style.display="block"; 
@@ -685,14 +690,85 @@
             }
             req.send();
         }
-        function getuser(){
+        reserve.onclick=function(){
             let req=new XMLHttpRequest();
             req.open("GET","/api/user");
             req.onload=function(){
                 let mydata= JSON.parse(req.response)
                 console.log(mydata)
                 if(mydata.data==null){
-                    console.log("321")
+                    login.style.display="block";
+                    bg.style.display="block";                 
+                }
+                else{
+                    window.location = '/booking';
+                }
+            }
+            req.send();
+        }
+        startbt.onclick=function(){
+            
+            let date=document.getElementById("date").value;
+            let dateAlert=document.getElementById("dateAlert");
+            let day=document.querySelector('[name=day]:checked').value;
+            let day_req="morning"
+            let price="2000"
+            if (date==""){
+                let req=new XMLHttpRequest();
+                req.open("GET","/api/user");
+                req.onload=function(){
+                    let mydata= JSON.parse(req.response)
+                    if(mydata.data==null){
+                        login.style.display="block";
+                        bg.style.display="block";                 
+                    }
+                    else{
+                        
+                    }
+                }
+                req.send();
+                dateAlert.innerHTML="&thinsp;&thinsp;請輸入日期"
+            }
+            else{       
+                if (day==1){
+                    day_req="morning"
+                    price="2000"
+                }
+                else{
+                    day_req="afternoon"
+                    price="2500"
+                }
+                let data={
+                    'attractionId':id,
+                    'date':date,
+                    'time':day_req,
+                    'price':price
+                }
+                let data_js=JSON.stringify(data);
+                console.log(data_js)
+                let req = new XMLHttpRequest();
+                req.open("POST","/api/booking");
+                req.setRequestHeader("Content-type","application/json");
+                req.onload=function(){
+                    let mydata= JSON.parse(req.response)
+                    if (mydata.ok==true){
+                        window.location = '/booking';
+                    }
+                    else{
+                        login.style.display="inline";
+                        bg.style.display="inline";
+                    }
+                }
+                req.send(data_js);
+            }
+        }
+        function getuser(){
+            let req=new XMLHttpRequest();
+            req.open("GET","/api/user");
+            req.onload=function(){
+                let mydata= JSON.parse(req.response)    
+                if(mydata.data==null){
+                   
                     
                 }
                 else{
