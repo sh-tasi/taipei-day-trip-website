@@ -294,7 +294,52 @@
                 .delet{bottom:0px;}
 
                 img{width: 100%;aspect-ratio:1.3/1 ;}
+
+
+            
+            }
+
+            .tpfield {
+                height: 20px;
+                width: 200px;
+                border: 1px solid gray;
+                margin-left:5px;
+                padding: 5px;
+                border-radius: 5px;
+                border: 1px solid #E8E8E8;
                 
+                } 
+            form {
+                padding: 40px;
+                box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+            } 
+            .contactmessage{
+                color:#FF5D7D; margin-left:20px;
+            }
+            .card-number-group{
+                display:flex;
+                
+            }
+            .expiration-date-group{
+                display:flex;
+                margin-top:1rem;
+            }
+            .cvc-group{
+                display:flex;
+                margin-top:1rem;
+            } 
+            .cardmessage{
+                color:#FF5D7D;margin-top:5px;
+            }
+            #loading{
+                position:absolute; left:0; top:50px;  z-index:1;
+                width: 100%;
+                height: 100%;
+                background-color:#FFFFFF;
+                
+                text-align:center;
+
+            }
         </style>
         <script>
             function checkCardNumber(){
@@ -348,48 +393,68 @@
             <hr  class="textline"color="#E8E8E8" id="line1"  >
             <div class="bookcontact" id="bookcontact">
                 <div style="font-weight:700;font-size:19px">您的聯絡資訊</div>
-                <div class="booktext">聯絡姓名：<input type="text" class="contactText" id="contactuser" value="email"></div>
-                <div class="booktext">聯絡信箱：<input type="text" class="contactText" id="contactemail"></div>
-                <div class="booktext">手機號碼：<input type="text" class="contactText" id="contactphone"></div>
+                <div class="booktext">聯絡姓名：<input type="text" class="contactText" id="contactuser" value="email"><span class="contactmessage" id="usermessage">&nbsp;&nbsp;</span></div>
+                <div class="booktext">聯絡信箱：<input type="text" class="contactText" id="contactemail"><span class="contactmessage" id="emailmessage">&nbsp;&nbsp;</span></div>
+                <div class="booktext">手機號碼：<input type="text" class="contactText" id="contactphone"><span class="contactmessage" id="phonemessage">&nbsp;&nbsp;</span></div>
                 <div class="booktext" style="font-weight:700;">請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</div>
             </div>
             <hr  class="textline"color="#E8E8E8"  id="line2" >
             <div class="bookcontact" id="bookpay">
-                <div style="font-weight:700;font-size:19px">信用卡付款資訊</div>
-                <div class="booktext">卡片號碼：<input type="text" class="contactText" Placeholder="****&nbsp;****&nbsp;****&nbsp;****"  maxlength="12" ></div>
-                <div class="booktext">過期時間：<input type="text" class="contactText" Placeholder="MM&nbsp;/&nbsp;YY" maxlength="5"></div>
-                <div class="booktext">驗證號碼：<input type="text" class="contactText" Placeholder="CVV" maxlength="3"></div>
+                <div class="card-number-group">
+                    <label for="card-number" class="control-label"><span id="cardtype">
+                    </span>卡號號碼：</label><div class="tpfield" id="card-number"></div>
+                </div>
+                <div class="expiration-date-group">
+                    <label for="card-expiration-date" class="control-label"><span id="carddate">
+                    </span>過期時間：</label><div class="tpfield" id="card-expiration-date"></div>
+                </div>
+
+                <div class="cvc-group">
+                    <label for="cvc" class="control-label">驗證密碼：</label>
+                    <div class="tpfield" id="card-ccv"></div>
+                </div>
+                <div class="cardmessage" id="cardmessage">&nbsp;&nbsp;</div>
+                
+                
+                
             </div>
+            <div id="loading" >
+                正在載入中,請稍等.....</div>
             <hr  class="textline"color="#E8E8E8"  id="line3" >
             <div class="payforbook" id="payforbook" >
                 <div class="booktextR">總價：<span id="price">新台幣2500元</span></div>
-                <div class="booktextR2"><button type="submit" class="bookbt" >確認訂購並付款</button></div>
+                <div class="booktextR2"><button type="submit" class="bookbt" id="bookbt">確認訂購並付款</button></div>
                 <div style="height:100px"></div>
             </div>
 
             <div class="copy"><div class="COPYRIGHT" id="COPYRIGHT">COPYRIGHT © 2021 台北一日遊</div>
             
-        <body>
+        </body>
         <script>
+            let bookID=""
+            function delay(n){
+                return new Promise(function(resolve){
+                    setTimeout(resolve,n*1000);
+                    });
+                }
+            function closeDiv(){
+                document.getElementById('loading').style.visibility='hidden';
+            }
+            function openDiv(){
+                document.getElementById('loading').style.visibility='visible';
+            }
             function init(){
                 let screen=document.documentElement.scrollWidth 
                 let loginitem=document.getElementById("loginitem");
                 let logoutitem=document.getElementById("logoutitem");
                 let btlogout=document.getElementById("btlogout");
-                let HelloUser=document.getElementById("HelloUser");
-                let bookName=document.getElementById("bookName");
-                let bookdate=document.getElementById("bookdate");
-                let booktime=document.getElementById("booktime");
-                let bookprice=document.getElementById("bookprice");
-                let bookadress=document.getElementById("bookadress");
-                let bookdelet=document.getElementById("bookdelet");
-                let contactuser=document.getElementById("contactuser");
-                let contactemail=document.getElementById("contactemail");
-                let mybookimg=document.getElementById("mybookimg");
+
                 let booking=document.getElementById("booking");
                 let bookcontact=document.getElementById("bookcontact");
                 let bookpay=document.getElementById("bookpay");
                 let payforbook=document.getElementById("payforbook");
+
+                
                 let line1=document.getElementById("line1");
                 let line2=document.getElementById("line2");
                 let line3=document.getElementById("line3");
@@ -437,6 +502,7 @@
                         }
                     }
                     req.send();
+                    closeDiv();
     
                 }
                 function getbook(){
@@ -464,14 +530,14 @@
                             let date=mydata.date
                             let time=mydata.time
                             let price=mydata.price
+                            bookID=id
                             mybookimg.src=myimg
                             bookName.innerHTML=name
                             bookdate.innerHTML=date
                             booktime.innerHTML=time
                             bookprice.innerHTML=price
                             bookadress.innerHTML=address
-
-
+            
                         }
                     }
                     req.send();
@@ -480,6 +546,295 @@
                 getuser();
                 getbook();
             }
-            init();
+            
             
         </script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" ></script>    
+        <script src="https://js.tappaysdk.com/tpdirect/v5.9.0"></script>
+        <script>
+            init();
+            
+            TPDirect.setupSDK(123456789, 'appkey', 'sandbox')
+            TPDirect.card.setup({
+                fields: {
+                    number: {
+                        element: '#card-number',
+                        placeholder: '**** **** **** ****'
+                    },
+                    expirationDate: {
+                        element: document.getElementById('card-expiration-date'),
+                        placeholder: 'MM / YY'
+                    },
+                    ccv: {
+                        element: '#card-ccv',
+                        placeholder: '後三碼'
+                    }
+                },
+                styles: {
+                    'input': {
+                    'color': 'gray'
+                    },
+                    'input.ccv': {
+                        // 'font-size': '16px'
+                    },
+                    ':focus': {
+                        'color': 'black'
+                    },
+                    '.valid': {
+                        'color': 'green'
+                    },
+                    '.invalid': {
+                        'color': 'red'
+                    },
+                    '@media screen and (max-width: 400px)': {
+                        'input': {
+                            'color': 'orange'
+                        }
+                    }
+                }
+            })
+            $('#contactuser').keyup(function(){
+                if($('#contactuser').val().length<1){
+                    $('#usermessage').text(" 請填寫姓名")
+                }
+                else{
+                    $('#usermessage').text("")
+                }
+
+            })
+            $('#contactphone').keyup(function(){
+                if($('#contactphone').val().length<1){
+                    $('#phonemessage').text(" 請填寫手機號碼")
+                }
+                else{
+                    $('#phonemessage').text("")
+                }
+
+            })
+            $('#contactemail').keyup(function(){
+                if($('#contactemail').val().length<1){
+                    $('#emailmessage').text(" 請填寫信箱")
+                }
+                else{
+                    $('#emailmessage').text("")
+                }
+
+            })
+
+            TPDirect.card.onUpdate(function (update) {
+                /* Disable / enable submit button depend on update.canGetPrime  */
+                /* ============================================================ */
+    
+                // update.canGetPrime === true
+                //     --> you can call TPDirect.card.getPrime()
+                // const submitButton = document.querySelector('button[type="submit"]')
+
+                let bookbt=document.getElementById('bookbt')
+                if (update.canGetPrime) {
+                    // submitButton.removeAttribute('disabled')
+                    bookbt.removeAttribute('disabled')
+                    bookbt.style.backgroundColor="#448899"
+                    //$('button[type="submit"]').removeAttr('disabled')
+                   
+                   
+                } else {
+                    // submitButton.setAttribute('disabled', true)
+                    bookbt.setAttribute('disabled', true)
+                    bookbt.style.backgroundColor="#8E8E8E"
+                    //$('button[type="submit"]').attr('disabled', true)
+                   
+                }
+    
+    
+                /* Change card type display when card type change */
+                /* ============================================== */
+    
+                // cardTypes = ['visa', 'mastercard', ...]
+                let newType = update.cardType === 'unknown' ? '' : update.cardType
+                $('#cardtype').text(newType)
+    
+    
+    
+                /* Change form-group style when tappay field status change */
+                /* ======================================================= */
+    
+                // number 欄位是錯誤的
+                if (update.status.number === 2) {
+                    $('#cardmessage').text(" 請輸入信用卡訊息")
+                   // setNumberFormGroupToError('.card-number-group')
+                } else if (update.status.number === 0) {
+                    $('#cardmessage').text("")
+                   // setNumberFormGroupToSuccess('card-number-group')
+                } else {
+                   // setNumberFormGroupToNormal('card-number-group')
+                }
+    
+                if (update.status.expiry === 2) {
+                  //  setNumberFormGroupToError('.expiration-date-group')
+                  $('#cardmessage').text(" 請輸入信用卡訊息")
+                } else if (update.status.expiry === 0) {
+                  //  setNumberFormGroupToSuccess('.expiration-date-group')
+                  $('#cardmessage').text("")
+                } else {
+                  //  setNumberFormGroupToNormal('.expiration-date-group')
+                }
+    
+                if (update.status.cvc === 2) {
+                    $('#cardmessage').text(" 請輸入信用卡訊息")
+                  //  setNumberFormGroupToError('.cvc-group')
+                } else if (update.status.cvc === 0) {
+                    $('#cardmessage').text("")
+                  //  setNumberFormGroupToSuccess('.cvc-group')
+                } else {
+                  //  setNumberFormGroupToNormal('.cvc-group')
+                }
+            })
+            bookbt.onclick=function(){
+                let dataChackPhone=0;
+                let dataChackEmail=0;
+                let dataChackUser=0;
+                if($('#contactphone').val().length<1){
+                    $('#phonemessage').text(" 請填寫手機號碼")
+                    dataChack=0;
+                }
+                else{
+                    $('#phonemessage').text("")
+                    dataChackPhone=1;
+                }
+                if($('#contactemail').val().length<1){
+                    $('#emailmessage').text(" 請填寫信箱")
+                    dataChack=0;
+                }
+                else{
+                    $('#emailmessage').text("")
+                    dataChackEmail=1;
+                }
+                if($('#contactuser').val().length<1){
+                    $('#usermessage').text(" 請填寫姓名")
+                    dataChack=0;
+                }
+                else{
+                    $('#usermessage').text("")
+                    dataChackUser=1;
+                }
+                dataChack=dataChackPhone+dataChackEmail+dataChackUser
+
+                const tappayStatus = TPDirect.card.getTappayFieldsStatus()
+                console.log(tappayStatus)
+    
+                // Check TPDirect.card.getTappayFieldsStatus().canGetPrime before TPDirect.card.getPrime
+                if (tappayStatus.canGetPrime === false) {
+                    $('#cardmessage').text(" 請輸入信用卡訊息")
+                    return
+                }
+                let reqData={}
+                openDiv()
+                TPDirect.card.getPrime(function (result) {
+                    if (dataChack==3){
+                        openDiv()
+                        if (result.status !== 0) {
+                            console.log('get prime error ' + result.msg)
+                            return
+                        }
+                        
+                        let HelloUser=document.getElementById("HelloUser");
+                        let bookName=document.getElementById("bookName");
+                        let bookdate=document.getElementById("bookdate");
+                        let booktime=document.getElementById("booktime");
+                        let bookprice=document.getElementById("bookprice");
+                        let bookadress=document.getElementById("bookadress");
+                        let contactphone=document.getElementById("contactphone");
+                        let contactuser=document.getElementById("contactuser");
+                        let contactemail=document.getElementById("contactemail");
+                        let mybookimg=document.getElementById("mybookimg");
+                        console.log(mybookimg.src)
+                        reqData={
+                            "prime":result.card.prime,
+                            "order":{
+                                "price":bookprice.innerText,
+                                "trip":{
+                                    "attraction":{
+                                        "id":bookID,
+                                        "name":bookName.innerText,
+                                        "address":bookadress.innerText,
+                                        "image":mybookimg.src
+                                    },
+                                    "date":bookdate.innerText,
+                                    "time":booktime.innerText
+                                },
+                            },
+                            "contact":{
+                                "name":contactuser.value,
+                                "email":contactemail.value,
+                                "phone":contactphone.value
+                            }
+                        }
+                    }
+                    //let data_js=JSON.stringify(reqData);
+                        
+                    // let req=new XMLHttpRequest();
+                    //   req.setRequestHeader("Content-type","application/json");
+                    //  req.open("POST","/api/orders");
+                    //  req.onload=function(){
+                     //       let mydata= JSON.parse(req.response)
+                     //       if(mydata.data==null){
+                     //           console.log("456")
+                     //       }
+                     //       else{
+                     //
+                    
+                     //     }
+                     //   }
+                     // req.send(data_js);//
+                    
+   
+                        
+       
+                        //var command = `
+                        //Use following command to send to server \n\n
+                        //curl -X POST https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime \\
+                        //-H 'content-type: application/json' \\
+                        //-H 'x-api-key: partner_6ID1DoDlaPrfHw6HBZsULfTYtDmWs0q0ZZGKMBpp4YICWBxgK97eK3RM' \\
+                        //-d '{
+                        //    "partner_key": "partner_6ID1DoDlaPrfHw6HBZsULfTYtDmWs0q0ZZGKMBpp4YICWBxgK97eK3RM",
+                        //   "prime": "${result.card.prime}",
+                        //    "amount": "1",
+                        //    "merchant_id": "GlobalTesting_CTBC",
+                         //   "details": "Some item",
+                        //    "cardholder": {
+                        //        "phone_number": "+886923456789",
+                        //        "name": "王小明",
+                         //       "email": "LittleMing@Wang.com",
+                         //       "zip_code": "100",
+                         //       "address": "台北市天龍區芝麻街1號1樓",
+                         //       "national_id": "A123456789"
+                         //   }
+                        //}'`.replace(/                /g, ''
+                    
+                    let data_js=JSON.stringify(reqData);
+                        
+                    let req=new XMLHttpRequest();
+                   
+                    req.open("POST","/api/orders");
+                    req.setRequestHeader("Content-type","application/json");
+                    req.onload=function(){
+                        let mydata= JSON.parse(req.response)
+                        if(mydata.data==null){
+                            console.log("error")
+                            
+                        }
+                        else{
+                            console.log(mydata.data)
+                            thisbook=mydata.data
+                            number=thisbook.number
+                            window.location = "/thankyou?number="+number;
+                        }
+                    }
+                    req.send(data_js);
+                    
+                   
+                })
+            }
+            
+             
+        </script>   

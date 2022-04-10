@@ -1,6 +1,8 @@
 from flask import *
 from api.attractions_sys.view import attractions_sys
 from api.member_sys.view import member_sys
+from api.book_sys.view import book_sys
+from api.orders_sys.view import orders_sys
 
 
 app=Flask(__name__)
@@ -8,6 +10,8 @@ app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
 app.register_blueprint(attractions_sys, url_prefix='/api')
 app.register_blueprint(member_sys, url_prefix='/api')
+app.register_blueprint(book_sys, url_prefix='/api')
+app.register_blueprint(orders_sys, url_prefix='/api')
 
 
 # Pages

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+        <title>台北一日遊</title>
+        <style type="text/css">
+            @font-face {
+                font-family:'Noto Sans TC';
+                font-style: normal;
+                font-weight: 700;
+                src:url("https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap&subset=chinese-traditional"),
+            }
+            html{
+                height:100%;
+                margin:0;
+            }
+            body{
+                height: 100%;
+                margin:0;
+                display: flex; 
+                flex-direction: column;
+            }
+            a {text-decoration:none;color:#666666;}
+            a:visited {color:#666666;}
+            .CS{
+                
+            }
+            .NBtitle a{text-decoration:none;color:#448899; }
+            .NBtitle a:visitedcolor:{color:#448899;}
+            .SPACE{
+                height:32px;
+            }
+            .NavigationBar{
+                font-family:'Noto Sans TC',serif;display:flex;width:1200px;justify-self: center;margin:auto;  font-size:16px;justify-content: center; 
+                align-items: center; background-color:#FFFFFF;
+            }
+            .NB-SPACE{
+                position:fixed;width:100%;background-color:#FFFFFF; top:0%; z-index: 7;
+            }
+            .NBtitle{
+                font-family:'Noto Sans TC',serif;flex:8;justify-self:start;font-size:1rem; font-size:1.5rem;color:#448899;font-weight: bolder;
+                
+            } 
+            .NBitem{
+                font-family:'Noto Sans TC',serif;display:flex;flex:1.2;justify-self:end;font-size:1rem; color:#666666;font-weight: bold;
+                
+            }
+            .item{
+                font-family:'Noto Sans TC',serif;flex:1;justify-self: end;text-align:center;color:#666666;
+            }
+
+           .copy{
+            width:100% ;height:100%;background-color: #757575;  flex-grow: 1;
+            
+            }
+            .box-content{
+            flex-grow: 1;
+            }
+            .COPYRIGHT{
+            font-family:'Noto Sans TC';text-align:center;  font-size:16px; color:#FFFFFF;font-weight: bolder;padding:20px;
+            }
+            
+            .bg{
+                background-color: #000;
+                width: 100%;
+                height: 100%;
+                top: 0px;
+                position: fixed;
+                opacity: 0.3;
+                -webkit-opacity: 0.3;
+                -moz-opacity: 0.3;
+                display:none;
+                
+            }
+
+            .login{
+                position: absolute;
+                width: 340px;
+                height: 275px;
+                z-index: 9999;
+                background-color: white;
+                top:80px;
+                margin-left: 0;
+                margin-top: 0;
+                border: 1px solid gray;
+                overflow:hidden;
+                border-radius:5px;
+                display:none;
+            }
+            #register{
+                position: absolute;
+                width: 340px;
+                height: 334px;
+                z-index: 9999;
+                background-color: white;
+                top:80px;
+                margin-left: 0;
+                margin-top: 0;
+                border: 1px solid gray;
+                overflow:hidden;
+                border-radius:5px;
+                display:none;
+
+            }
+            .login-title{
+                font-family:'Noto Sans TC';text-align:center;font-size:24px;color:#666666 ;margin-top:10px;
+            }
+            .sign-text{
+                font-family:'Noto Sans TC';border:1px #CCCCCC solid;padding:10px ;font-size:16px;margin:auto;width:90%;border-radius:5px;
+            }
+            .sign-button{
+                font-family:'Noto Sans TC';border:1px #CCCCCC solid;padding:7px ;font-size:19px;width:314px;height:50px;border-radius:5px;color:#FFFFFF;background:#448899;font-weight:100;
+            }
+            .sign-text-div{
+                margin-left:15px;margin-top:10px;
+            }
+            .sign-button-div{
+                margin-left:15px;margin-top:10px;
+            }
+            .sign-connect{
+                font-family:'Noto Sans TC';margin-top:5px;width:314px;height:50px;color:#666666;text-align:center;
+            }
+            .sign-connect a{
+                color:#666666;
+            }
+            .message{
+                font-family:'Noto Sans TC';color:#666666;margin-top:2px;text-align:center;
+            }
+            #closeBtnforlogin{
+                position:absolute;
+                top:12px;
+                right:15px;
+                border:0px;
+                width:14px;
+                height:14px;
+                color:#666666;
+               
+                font-family:'Noto Sans TC';
+            }
+            #closeBtnforreg{
+                position:absolute;
+                top:12px;
+                right:15px;
+                border:0px;
+                width:14px;
+                height:14px;
+                color:#666666;
+                
+                font-family:'Noto Sans TC';   
+            }
+            .decorator{
+                width:340px;height:10px;background-image:url("/static/images/decorator.png");font-size:12px;margin-top:-5px;
+            }
+            #logoutitem{
+                display:none;
+            }
+            #topline{
+                color:"#E8E8E8"; width:100%; margin-top:10px; SIZE:20px; 
+            }
+
+            .contect{
+                margin-top:1rem;
+                margin-button:1rem;
+                margin-left:auto;
+                margin-right:auto;
+                font-family:'Noto Sans TC';
+                color:#666666;
+                font-size:16px;
+            }
+            .contect2{
+                margin-top:0;
+                margin-button:1rem;
+                margin-left:auto;
+                margin-right:auto;
+                font-family:'Noto Sans TC';
+                color:#666666;
+                font-size:16px;
+            }
+            .stayspace{
+                height:100px;
+
+            }
+            #mynumber{
+                font-weight:bolder;
+            }
+        </style>
+        <body>
+            <div class="CS">
+                <div class="SPACE"></div>
+                <div class="NB-SPACE">
+                    <div class="NavigationBar">  
+                        <div class="NBtitle"><a href="/">台北一日遊</a></div>
+                        <div class="NBitem">
+                            <div class="item"><a id="reserve"href="/booking">預定行程</a></div>
+                            <div class="item" id="loginitem"><a id="btlogin"href="javascript:void(0)">登入</a>/<a id="btresg"href="javascript:void(0)">註冊</a></div>
+                            <div class="item" id="logoutitem"><a id="btlogout"href="javascript:void(0)">登出系統</a></div>
+                        </div>
+                    </div>
+                </div>
+                <hr  id="topline"color="#E8E8E8"   >
+                
+            </div>
+            <div class="contect">
+                <div class="messagetext">行程預定成功</div>
+            </div>
+            <div class="contect2">
+                <div class="messagetext">您的訂單編號如下</div>
+            </div>
+            <div class="contect" id="mynumber"> </div>
+            <div class="contect">請記住此編號，或到會員中心查詢歷史訂單</div>
+            <div class="stayspace"> </div>
+            <div class="copy"><div class="COPYRIGHT" id="COPYRIGHT">COPYRIGHT © 2021 台北一日遊</div>
+            
+        </body>
+        <script>
+            function init(){
+                let screen=document.documentElement.scrollWidth 
+                let loginitem=document.getElementById("loginitem");
+                let logoutitem=document.getElementById("logoutitem");
+                let btlogout=document.getElementById("btlogout");
+                let mynumber=document.getElementById("mynumber");
+                
+                let now_url = location.href;
+                let new_url=now_url.split('=');
+                mynumber.innerHTML=new_url[1]
+
+                btlogout.onclick=function(){
+                    let req=new XMLHttpRequest();
+                    req.open("DELETE","/api/user");
+                    req.onload=function(){
+                        let mydata= JSON.parse(req.response)
+                        if (mydata.ok==true){
+                            window.location.replace(location.href)
+                        }
+                    }
+                    req.send();
+                }
+                function getuser(){
+                    let req=new XMLHttpRequest();
+                    req.open("GET","/api/user");
+                    req.onload=function(){
+                        let mydata= JSON.parse(req.response)
+                        if(mydata.data==null){
+                            document.location.href="/"
+                            
+                        }
+                        else{
+                
+                            loginitem.style.display="none";
+                            logoutitem.style.display="block";
+                        }
+                    }
+                    req.send();
+    
+                }
+                getuser();
+            }
+            init();
+
+        </script>
