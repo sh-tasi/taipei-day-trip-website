@@ -54,7 +54,11 @@ def Number():
     struct_time = time.localtime(nowTime)
     number= time.strftime("%Y%m%d%H%M%S", struct_time)+maxNumber_st
     return(number)
-
+def delet_book():
+    response_js=jsonify({"ok":True})
+    resp = make_response(response_js)
+    resp.set_cookie(key='book', value='', expires=0)
+    return resp
 def PostOrder(data,user):
     mydb = mysql.connector.connect(
     host='localhost',
@@ -252,11 +256,13 @@ def getOrder():
     data=request.get_json()
     OrderNumber=PostOrder(data,Userdata)
     reqStatus=pay(data,OrderNumber)
+    reqStatus_js=jsonify(reqStatus)
+    resp = make_response(reqStatus_js)
+    resp.set_cookie(key='book', value='', expires=0)
     
     
-    
-    print(reqStatus)
-    return jsonify(reqStatus)
+    print(resp)
+    return (resp)
 @orders_sys.route('/orders/<orderNumber>',methods=["GET"])
 def getOrderNumber(orderNumber):
     token=get_token()
@@ -271,5 +277,5 @@ def getOrderNumber(orderNumber):
         get_data=sql_get_data(username)
         Userdata={"id":get_data[0],"name":get_data[1],"email":get_data[2]}
         req=getOrderStatus(orderNumber)
-  
+
         return jsonify(req)
