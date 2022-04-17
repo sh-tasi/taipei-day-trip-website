@@ -23,6 +23,7 @@
             }
             a {text-decoration:none;color:#666666;}
             a:visited {color:#666666;}
+            a:hover{opacity: .5;}
             .NBtitle a{text-decoration:none;color:#448899; }
             .NBtitle a:visitedcolor:{color:#448899;}
             .CS{
@@ -92,6 +93,7 @@
             .startbt{
                 font-family:'Noto Sans TC',serif;background-color: #448899;color: #FFFFFF;width: 150px; height:36px ; border: 0px; border-radius: 5px;font-size: 1rem;
             }
+            .startbt:hover{opacity: .5;cursor: pointer;}
             .block{
                 display: inline-block;height:6px;
             }
@@ -137,6 +139,7 @@
                 border:0px;
                 Opacity:0.5;
             }
+            .mypic button:hover{cursor: pointer;}
             .right_btn{
                 top: 170px;
                 right: 0;
@@ -193,6 +196,8 @@
                 border: 2px solid #fff;
                 top:3px;
             }
+            #controls-visibleday:hover{cursor: pointer;}
+            #controls-visiblenight:hover{cursor: pointer;}
             input[type="radio"]{
                 display:none;
             }
@@ -233,6 +238,7 @@
                 border-radius:5px;
                 display:none;
             }
+            .sign-button:hover{cursor: pointer; Opacity:0.5;}
             #register{
                 position: absolute;
                 width: 340px;
@@ -341,6 +347,23 @@
             }
             
 
+            #memberSys{display:none;}
+            .memberItem{
+                position:absolute;
+                border-radius:5px;
+                border:2px;
+                background-color:#FFFFFF;
+                box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+            
+            }
+            #memberItem{
+                display:none;
+            }
+            .memberItemContent{
+                margin:10px;
+                
+            }
+
 
         </style>
         <script type="text/javascript">
@@ -368,7 +391,13 @@
                     <div class="NBitem">
                         <div class="item"><a id="reserve"href="javascript:void(0)">預定行程</a></div>
                         <div class="item" id="loginitem"><a id="btlogin"href="javascript:void(0)">登入</a>/<a id="btresg"href="javascript:void(0)">註冊</a></div>
-                        <div class="item" id="logoutitem"><a id="btlogout"href="javascript:void(0)">登出系統</a></div>
+                        <div class="item" id="memberSys"><a id="memberSysBt"href="javascript:void(0)">會員系統</a>
+                            <div class="memberItem" id="memberItem">
+                                <div class="memberItemContent"><a id="memberOrder"href="/member/orders">訂單查詢</a></div>
+                                <div class="memberItemContent"><a id="memberInformation"href="/member/information">會員資料</a></div>
+                                <div class="memberItemContent"><a id="btlogout"href="javascript:void(0)">登出系統</a></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -602,7 +631,10 @@
         let btlogout=document.getElementById("btlogout");
         let startbt=document.getElementById("startbt");
         let reserve=document.getElementById("reserve");
-        
+        let memberSys=document.getElementById("memberSys");
+        let memberSysBt=document.getElementById("memberSysBt");
+        let memberItem=document.getElementById("memberItem");
+        memberItem.style.display="none"
         changeregister.onclick=function(){
             login.style.display="none";
             register.style.display="block"; 
@@ -706,6 +738,15 @@
             }
             req.send();
         }
+        memberSysBt.onclick=function(){
+            if (memberItem.style.display=="none"){
+                 memberItem.style.display="block";
+            }
+            else{
+                 memberItem.style.display="none";
+             
+             }
+         }
         startbt.onclick=function(){
             
             let date=document.getElementById("date").value;
@@ -713,6 +754,28 @@
             let day=document.querySelector('[name=day]:checked').value;
             let day_req="morning"
             let price="2000"
+            let Today=new Date();
+            let dateCheckOk=0;
+            nowYear=Today.getFullYear()
+            nowMonth=Today.getMonth()+1
+            nowDay=Today.getDate()
+            dateCheck=date.split("-");
+            dateCheckYear=Number(dateCheck[0])
+            dateCheckMonth=Number(dateCheck[1])
+            dateCheckDay=Number(dateCheck[2])
+
+            if (dateCheckYear>nowYear){dateCheckOk=1;}
+            else if (dateCheckYear=nowYear){
+                if (dateCheckMonth>nowMonth){dateCheckOk=1;}
+                else if(dateCheckMonth<nowMonth){
+                    
+                }
+                else if (dateCheckMonth=nowMonth){
+                    if (dateCheckDay>nowDay){
+                        dateCheckOk=1;
+                    }
+                }
+            }
             if (date==""){
                 let req=new XMLHttpRequest();
                 req.open("GET","/api/user");
@@ -729,7 +792,23 @@
                 req.send();
                 dateAlert.innerHTML="&thinsp;&thinsp;請輸入日期"
             }
-            else{       
+            else if (dateCheckOk==0){
+                let req=new XMLHttpRequest();
+                req.open("GET","/api/user");
+                req.onload=function(){
+                    let mydata= JSON.parse(req.response)
+                    if(mydata.data==null){
+                        login.style.display="block";
+                        bg.style.display="block";                 
+                    }
+                    else{
+                        
+                    }
+                }
+                req.send();
+                dateAlert.innerHTML="&thinsp;&thinsp;預約只接受明日以後的日期"
+            }
+            else{
                 if (day==1){
                     day_req="morning"
                     price="2000"
@@ -773,7 +852,7 @@
                 }
                 else{
                     loginitem.style.display="none";
-                    logoutitem.style.display="block";
+                    memberSys.style.display="block";
                 }
             }
             req.send();

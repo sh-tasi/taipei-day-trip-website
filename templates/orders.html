@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+        <title>台北一日遊</title>
+        <style type="text/css">
+            @font-face {
+                font-family:'Noto Sans TC';
+                font-style: normal;
+                font-weight: 700;
+                src:url("https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap&subset=chinese-traditional"),
+            }
+            html{
+                height:100%;
+                margin:0;
+            }
+            body{
+                height: 100%;
+                margin:0;
+                display: flex; 
+                flex-direction: column;
+            }
+            a {text-decoration:none;color:#666666;}
+            a:visited {color:#666666;}
+            a:hover{opacity: .5;}
+            .NBtitle a{text-decoration:none;color:#448899; }
+            .NBtitle a:visitedcolor:{color:#448899;}
+            .CS{
+                 flex-grow: 1;
+            }
+            .SPACE{
+                height:32px;
+            }
+            .NavigationBar{
+                font-family:'Noto Sans TC',serif;display:flex;width:1200px;justify-self: center;margin:auto;  font-size:16px;justify-content: center; 
+                align-items: center; background-color:#FFFFFF;
+            }
+            .NB-SPACE{
+                position:fixed;width:100%;background-color:#FFFFFF; top:0%;z-index: 7;
+            }
+            .NBtitle{
+                font-family:'Noto Sans TC',serif;flex:8;justify-self:start;font-size:1rem; font-size:1.5rem;color:#448899;font-weight: bolder;
+                
+            } 
+            .NBitem{
+                font-family:'Noto Sans TC',serif;display:flex;flex:1.2;justify-self:end;font-size:1rem; color:#666666;font-weight: bold;
+                
+            }
+            .item{
+                font-family:'Noto Sans TC',serif;flex:1;justify-self: end;text-align:center;color:#666666;
+            }
+            .copy{
+                width:100% ;hight:100%;background-color: #757575; 
+                
+            }
+            .COPYRIGHT{
+                font-family:'Noto Sans TC';text-align:center;  font-size:16px; color:#FFFFFF;font-weight: bolder;padding:20px;
+            }
+            .bg{
+                background-color: #000;
+                width: 100%;
+                height: 100%;
+                top: 0px;
+                position: fixed;
+                opacity: 0.3;
+                -webkit-opacity: 0.3;
+                -moz-opacity: 0.3;
+                display:none;
+                
+            }
+            .login{
+                position: absolute;
+                width: 340px;
+                height: 275px;
+                z-index: 9999;
+                background-color: white;
+                top:80px;
+                margin-left: 0;
+                margin-top: 0;
+                border: 1px solid gray;
+                overflow:hidden;
+                border-radius:5px;
+                display:none;
+            }
+            #register{
+                position: absolute;
+                width: 340px;
+                height: 334px;
+                z-index: 9999;
+                background-color: white;
+                top:80px;
+                margin-left: 0;
+                margin-top: 0;
+                border: 1px solid gray;
+                overflow:hidden;
+                border-radius:5px;
+                display:none;
+
+            }
+            .login-title{
+                font-family:'Noto Sans TC';text-align:center;font-size:24px;color:#666666 ;margin-top:10px;
+            }
+            .sign-text{
+                font-family:'Noto Sans TC';border:1px #CCCCCC solid;padding:10px ;font-size:16px;margin:auto;width:90%;border-radius:5px;
+            }
+            .sign-button{
+                font-family:'Noto Sans TC';border:1px #CCCCCC solid;padding:7px ;font-size:19px;width:314px;hight:50px;border-radius:5px;color:#FFFFFF;background:#448899;font-weight:100;
+            }
+            .sign-text-div{
+                margin-left:15px;margin-top:10px;
+            }
+            .sign-button-div{
+                margin-left:15px;margin-top:10px;
+            }
+            .sign-connect{
+                font-family:'Noto Sans TC';margin-top:5px;width:314px;hight:50px;color:#666666;text-align:center;
+            }
+            .sign-connect a{
+                color:#666666;
+            }
+            .message{
+                font-family:'Noto Sans TC';color:#666666;margin-top:2px;text-align:center;
+            }
+            #closeBtnforlogin{
+                position:absolute;
+                top:12px;
+                right:15px;
+                border:0px;
+                width:14px;
+                hight:14px;
+                color:#666666;
+               
+                font-family:'Noto Sans TC';
+            }
+            #closeBtnforreg{
+                position:absolute;
+                top:12px;
+                right:15px;
+                border:0px;
+                width:14px;
+                hight:14px;
+                color:#666666;
+                
+                font-family:'Noto Sans TC';   
+            }
+            .decorator{
+                width:340px;hight:10px;background-image:url("/static/images/decorator.png");font-size:12px;margin-top:-5px;
+            }
+            #logoutitem{
+                display:none;
+            }
+            .sign-button:hover{cursor: pointer; Opacity:0.5;}
+            #memberSys{display:none;}
+            .memberItem{
+                position:absolute;
+                border-radius:5px;
+                border:2px;
+                background-color:#FFFFFF;
+                box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+            
+            }
+
+
+
+            #memberItem{
+                display:none;
+            }
+            .memberItemContent{
+                margin:10px;
+                
+            }
+
+
+
+            .contentTitle{
+                font-family:'Noto Sans TC';
+                color:#666666;
+                margin-top:1.2rem;  
+                width:1200px;
+                margin-right:auto;
+                margin-left:auto;
+                font-size:26px;
+                font-weight:700;
+                margin-bottom:1rem;
+                
+                
+            }
+            .keywd{
+                padding:5px;
+                width:300px;
+                height:36px;
+                font-size:19px;
+                
+            }
+            .button{
+                background-image:url("/static/images/icon_search.png");  background-repeat: no-repeat; background-position: center center;
+                vertical-align:top ;
+                height: 50px;
+                width: 60px;
+                border: 0;
+                margin-left: -7px;
+                background-color: #448899;
+            }
+            .button:hover{cursor: pointer;}
+            .parent-box{
+                width:1200px;
+                margin-right:auto;
+                margin-left:auto;
+                font-family:'Noto Sans TC';
+                color:#666666;
+                font-size:19px;
+            }
+            .order{
+                
+                width:1200px;
+                height:auto;
+                margin-top:2.2rem;
+                
+            }
+            .orderTitle{
+                display:flex;
+                
+               
+            }
+            .orderTitleContent{
+                margin-right:1rem;
+                font-weight:bolder;
+            }
+            img{
+                width: 266px;
+                aspect-ratio:1.3/1 ;
+                
+                
+            }
+
+            
+            .orderContent{
+                margin-left:50px;
+                display:flex;
+                
+                width:1000px;
+                
+               
+                
+            }
+            .bookDetail{
+                margin-left:1.2rem;
+            }
+            .booktitle{
+                color:#448899;
+            }
+            .booktext{
+                margin-top:1rem;
+            }
+            .hrTitle{
+                width:1200px;
+                height:1px;
+                color:#448899;
+                size:20px; 
+            }
+            .moreBt{ color:#448899;}
+            .moreBt:hover{cursor: pointer;}
+
+
+
+            @media screen and (max-width:1200px){
+                .NavigationBar{width:90%;}
+                .NBtitle{flex:6;}
+                .content{width:90%;}
+                .parent-box{width:90%;}
+                #contentTitle{width:90%;}
+                #contentSearch{width:90%;}
+                .order{width:90%;}
+                .topline{width:100%;}
+                #line{width:90%;}
+                
+                .orderContent{width:90%;}
+                .hrTitle{width:90%;}
+            }
+            @media screen and (max-width:600px){
+                .NBtitle{flex:1;}
+                .bg{
+                    height: 640px;
+                }
+                .keywd{width:200px;}
+                .orderContent{width:80%;margin:auto;}
+                #contentSearch{width:90%;}
+                
+                img{width: 100%;aspect-ratio:1.3/1 ;}
+            }
+        </style>
+        <script type="text/javascript">
+            async function getOrderData(){
+                const nameElement = document.getElementsByName('keyword');
+                const keyword = nameElement[0].value;
+                if (nextPage==null){
+                    return("have no data")
+                }
+                else{
+                    let url='/api/orders/allOrder?page='+nextPage
+                    delay(1)
+                    let data= await fetch(url);
+                    data= await data.json();
+                    my_result=data.data
+                    if (my_result==null){
+                        parentbox=document.getElementById("parent-box")
+                        console.log("no data")
+                        let message=document.createElement("div");
+                        message.setAttribute("class","order");
+                        message.textContent="目前尚未有任何訂單"
+                        parentbox.appendChild(message);
+
+                    }
+                    else{
+                        for (let i=0;i<my_result.length;i++){
+                            number=my_result[i].number
+                            contact=my_result[i].contact
+                            trip=my_result[i].trip
+                            price=my_result[i].price
+                            status=my_result[i].status
+        
+                            attraction=trip.attraction
+                            date=trip.date
+                            time=trip.time
+        
+                            address=attraction.address
+                            id=attraction.id
+                            image=attraction.image
+                            name=attraction.name
+                            addElement(i,nextPage,number,status,image,name,date,time,price,address);
+                        }
+                        nextPage=data.nextPage;
+                    }
+ 
+                }
+            }
+            async function getkey(keyword){
+                if(nextPage==null){
+                    return("no")
+                }
+                else{
+                    let url='/api/orders/'+keyword
+                    let data= await fetch(url);
+                    data= await data.json();
+                    my_result=data.data
+                    if (my_result==null){
+                        parentbox=document.getElementById("parent-box")
+                        let box= document.createElement("div");
+                        box.setAttribute("class","box-content");
+                        box.textContent="訂單編號錯誤，請重新確認";
+                        
+                        parentbox.appendChild(box);
+                    }
+                    else{
+                        number=my_result.number
+                        contact=my_result.contact
+                        trip=my_result.trip
+                        price=my_result.price
+                        status=my_result.status
+        
+                        attraction=trip.attraction
+                        date=trip.date
+                        time=trip.time
+        
+                        address=attraction.address
+                        id=attraction.id
+                        image=attraction.image
+                        name=attraction.name
+                        addElementForSearch(number,status,image,name,date,time,price,address);
+                    }
+                }
+                
+                
+            }
+            function searchOrder(){
+                const nameElement = document.getElementsByName('keyword');
+                const keyword = nameElement[0].value;
+                if (keyword==""){
+                    let node=document.querySelector('#parent-box')
+                    while (node.firstChild){
+                        node.removeChild(node.firstChild)
+                    }
+                    nextPage=0;
+                    getOrderData();
+                    
+                    return("all data")
+                }
+                else{
+                    let node=document.querySelector('#parent-box')
+                    while (node.firstChild){
+                        node.removeChild(node.firstChild)
+                    }
+                    getkey(keyword);
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <div class="CS">
+            <div class="SPACE"></div>
+            <div class="NB-SPACE">
+                <div class="NavigationBar">  
+                    <div class="NBtitle"><a href="/">台北一日遊</a></div>
+                    <div class="NBitem">
+                        <div class="item"><a id="reserve"href="/booking">預定行程</a></div>
+                        <div class="item" id="loginitem"><a id="btlogin"href="javascript:void(0)">登入</a>/<a id="btresg"href="javascript:void(0)">註冊</a></div>
+                        <div class="item" id="memberSys"><a id="memberSysBt"href="javascript:void(0)">會員系統</a>
+                            <div class="memberItem" id="memberItem">
+                                <div class="memberItemContent"><a id="memberOrder"href="/member/orders">訂單查詢</a></div>
+                                <div class="memberItemContent"><a id="memberInformation"href="/member/information">會員資料</a></div>
+                                <div class="memberItemContent"><a id="btlogout"href="javascript:void(0)">登出系統</a></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="bg" class="bg">&thinsp;</div>
+            <hr  id="topline"color="#E8E8E8"   >
+            <div class="contentTitle" id="contentTitle">歷史訂單</div>
+            <div class="contentTitle" id="contentSearch"><input type="text"  class="keywd" id="keyword" name="keyword" placeholder="請輸入訂單編號查詢">
+                <button type="submit" class="button" id="click" onclick="searchOrder();">
+            </div>
+            <hr  id="line"color="#E8E8E8"  width=1200px >
+
+            <div class="parent-box" id="parent-box">
+              
+            </div>
+            <div id="login" class="login">
+                <div class="decorator" >&thinsp;</div>
+                <div class="login-title" id="login-title">
+                    <div>登入會員帳號</div>
+                    <a id="closeBtnforlogin" href="javascript:void(0)">✕</a>
+                </div>
+                <div class="signsystembox">
+                        <div class="sign-text-div"><input class="sign-text" type="text" id="email" placeholder="輸入電子信箱"></div>
+                        <div class="sign-text-div"><input class="sign-text" type="password" id="password" placeholder="輸入密碼"></div>
+                        <div class="sign-button-div"><button id="signbutton"class="sign-button">登入帳戶</button></div>
+                        <div class="message" id="longinmessage"></div>
+                </div>
+                <div class="sign-connect">還沒有帳戶？<a id="changeregister" href="javascript:void(0)">點此註冊</a></div>
+            </div>
+            <div id="register">
+                <div class="decorator" >&thinsp;</div>
+                <div class="login-title" id="login-title">
+                    <div>註冊會員帳號</div>
+                    <a id="closeBtnforreg" href="javascript:void(0)">✕</a>
+                </div>
+                <div class="signsystembox">
+                        <div class="sign-text-div"><input class="sign-text" type="text" id="regusername" placeholder="輸入姓名"></div>
+                        <div class="sign-text-div"><input class="sign-text" type="text" id="regemail" placeholder="輸入電子信箱"></div>
+                        <div class="sign-text-div"><input class="sign-text" type="password" id="regpassword" placeholder="輸入密碼"></div>
+                        <div class="sign-button-div"><button id="regbutton"class="sign-button">註冊帳戶</button></div>
+                        <div class="message" id="regmessage"></div>
+                </div>
+                <div class="sign-connect">已經有帳戶了？<a id="changelogin" href="javascript:void(0)">點此登入</a></div>
+            </div>
+
+            <div class="ob" id ="ob"></div>
+        </div>
+        <div class="copy"><div class="COPYRIGHT" id="COPYRIGHT">COPYRIGHT © 2021 台北一日遊</div>
+    <body>
+    <script>
+        function delay(n){
+            return new Promise(function(resolve){
+                setTimeout(resolve,n*1000);
+                });
+        }
+        function addElement(i,page,number,status,image,name,date,time,price,address){
+            parentbox=document.getElementById("parent-box")
+            let order= document.createElement("div");
+            let orderTitle=document.createElement("div");
+            order.setAttribute("class","order");
+            orderTitle.setAttribute("class","orderTitle");
+            let orderNumber=document.createElement("div");
+            orderNumber.setAttribute("class","orderTitleContent");
+            orderNumber.textContent="訂單編號："+number;
+            orderTitle.appendChild(orderNumber);
+            let orderStatus=document.createElement("div");
+            orderStatus.setAttribute("class","orderTitleContent");
+            if (status==0){
+                orderStatus.textContent="狀態：已付款";
+                orderStatus.style.color="#6db85d";
+                
+            }
+            else{
+                orderStatus.style.color="#FF5D7D";
+                orderStatus.textContent="狀態：尚未付款"
+            }
+            orderTitle.appendChild(orderStatus);
+            
+            let moreBt=document.createElement("div");
+            moreBt.setAttribute("class","moreBt");
+            moreBt.setAttribute("id",String(page)+String(i));
+            moreBt.textContent="詳細"
+            orderTitle.appendChild(moreBt)
+            let hrTitle=document.createElement("hr");
+            hrTitle.setAttribute("class","hrTitle");
+
+            order.appendChild(orderTitle)
+            order.appendChild(hrTitle)
+            
+            //orderContent
+            let orderContent=document.createElement("div");
+            orderContent.setAttribute("class","orderContent");
+            orderContent.setAttribute("id",number);
+            //imgdiv
+            let bookImgDiv=document.createElement("div");
+            bookImgDiv.setAttribute("class","bookimg");
+            let newimg=document.createElement("img");
+            newimg.setAttribute("src",image);
+            bookImgDiv.appendChild(newimg);
+            orderContent.appendChild(bookImgDiv);
+            //book detail
+            bookDetail=document.createElement("div");
+            bookDetail.setAttribute("class","bookDetail");
+            //attraction name
+            attractionName=document.createElement("div");
+            attractionName.setAttribute("class","booktitle");
+            attractionName.textContent="台北一日遊："+name;
+            bookDetail.appendChild(attractionName);
+            //attraction date
+            attractionDate=document.createElement("div");
+            attractionDate.setAttribute("class","booktext");
+            attractionDate.textContent="日期："+date;
+            bookDetail.appendChild(attractionDate);
+            //attraction time
+            attractionTime=document.createElement("div");
+            attractionTime.setAttribute("class","booktext");
+            attractionTime.textContent="時間："+time;
+            bookDetail.appendChild(attractionTime);
+            //attraction price
+            attractionPrice=document.createElement("div");
+            attractionPrice.setAttribute("class","booktext");
+            attractionPrice.textContent="價錢："+price;
+            bookDetail.appendChild(attractionPrice);
+            //attraction address
+            attractionAddress=document.createElement("div");
+            attractionAddress.setAttribute("class","booktext");
+            attractionAddress.textContent="地址："+address;
+            bookDetail.appendChild(attractionAddress);
+            orderContent.appendChild(bookDetail);
+            order.appendChild(orderContent);
+            parentbox.appendChild(order);
+           // orderID=document.getElementById(number);
+           // orderID.style.display="none";
+            orderContent.style.display="none";
+            moreBtID=document.getElementById(String(page)+String(i));
+            
+            
+            
+            //more bt function
+            moreBtID.onclick=function(){
+               // ordercontent=document.getElementById(number);
+                //ordercontent.classList.toggle("orderContent");
+                
+                if (orderContent.style.display=="none"){
+                    if (phone==1){orderContent.style.display="block";}
+                    else{orderContent.style.display="flex";}
+                }
+                else{  orderContent.style.display="none";}
+            }
+            
+
+        }
+        function addElementForSearch(number,status,image,name,date,time,price,address){
+            parentbox=document.getElementById("parent-box")
+            let order= document.createElement("div");
+            let orderTitle=document.createElement("div");
+            order.setAttribute("class","order");
+            orderTitle.setAttribute("class","orderTitle");
+            let orderNumber=document.createElement("div");
+            orderNumber.setAttribute("class","orderTitleContent");
+            orderNumber.textContent="訂單編號："+number;
+            orderTitle.appendChild(orderNumber);
+            let orderStatus=document.createElement("div");
+            orderStatus.setAttribute("class","orderTitleContent");
+            if (status==0){
+                orderStatus.textContent="狀態：已付款";
+                orderStatus.style.color="#6db85d";
+                
+            }
+            else{
+                orderStatus.style.color="#FF5D7D";
+                orderStatus.textContent="狀態：尚未付款"
+            }
+            orderTitle.appendChild(orderStatus);
+            
+            let moreBt=document.createElement("div");
+            moreBt.setAttribute("class","moreBt");
+            moreBt.setAttribute("id","searchID");
+            moreBt.textContent="詳細"
+            orderTitle.appendChild(moreBt)
+            let hrTitle=document.createElement("hr");
+            hrTitle.setAttribute("class","hrTitle");
+
+            order.appendChild(orderTitle)
+            order.appendChild(hrTitle)
+            
+            //orderContent
+            let orderContent=document.createElement("div");
+            orderContent.setAttribute("class","orderContent");
+            orderContent.setAttribute("id",number);
+            //imgdiv
+            let bookImgDiv=document.createElement("div");
+            bookImgDiv.setAttribute("class","bookimg");
+            let newimg=document.createElement("img");
+            newimg.setAttribute("src",image);
+            bookImgDiv.appendChild(newimg);
+            orderContent.appendChild(bookImgDiv);
+            //book detail
+            bookDetail=document.createElement("div");
+            bookDetail.setAttribute("class","bookDetail");
+            //attraction name
+            attractionName=document.createElement("div");
+            attractionName.setAttribute("class","booktitle");
+            attractionName.textContent="台北一日遊："+name;
+            bookDetail.appendChild(attractionName);
+            //attraction date
+            attractionDate=document.createElement("div");
+            attractionDate.setAttribute("class","booktext");
+            attractionDate.textContent="日期："+date;
+            bookDetail.appendChild(attractionDate);
+            //attraction time
+            attractionTime=document.createElement("div");
+            attractionTime.setAttribute("class","booktext");
+            attractionTime.textContent="時間："+time;
+            bookDetail.appendChild(attractionTime);
+            //attraction price
+            attractionPrice=document.createElement("div");
+            attractionPrice.setAttribute("class","booktext");
+            attractionPrice.textContent="價錢："+price;
+            bookDetail.appendChild(attractionPrice);
+            //attraction address
+            attractionAddress=document.createElement("div");
+            attractionAddress.setAttribute("class","booktext");
+            attractionAddress.textContent="地址："+address;
+            bookDetail.appendChild(attractionAddress);
+            orderContent.appendChild(bookDetail);
+            order.appendChild(orderContent);
+            parentbox.appendChild(order);
+           // orderID=document.getElementById(number);
+           // orderID.style.display="none";
+            orderContent.style.display="none";
+            moreBtID=document.getElementById("searchID");
+            
+            
+            
+            //more bt function
+            moreBtID.onclick=function(){
+               // ordercontent=document.getElementById(number);
+                //ordercontent.classList.toggle("orderContent");
+                
+                if (orderContent.style.display=="none"){
+
+                    if (phone==1){orderContent.style.display="block";}
+                    else{orderContent.style.display="flex";}
+                    
+                }
+                else{  orderContent.style.display="none";}
+            }
+            
+
+        }
+        nextPage=0;
+        phone=0;
+        function init(){
+            let screen=document.documentElement.scrollWidth 
+            if (screen<600){phone=1;}
+            let loginitem=document.getElementById("loginitem");
+            let logoutitem=document.getElementById("logoutitem");
+            let btlogout=document.getElementById("btlogout");
+            let memberSysBt=document.getElementById("memberSysBt");
+            let memberItem=document.getElementById("memberItem");
+            
+            memberItem.style.display="none";
+            
+            
+    
+
+            btlogout.onclick=function(){
+                let req=new XMLHttpRequest();
+                req.open("DELETE","/api/user");
+                req.onload=function(){
+                    let mydata= JSON.parse(req.response)
+                    if (mydata.ok==true){
+                        window.location.replace(location.href)
+                    }
+                }
+                req.send();
+            }
+            memberSysBt.onclick=function(){
+                if (memberItem.style.display=="none"){
+                     memberItem.style.display="block";
+                }
+                else{
+                     memberItem.style.display="none";
+                 
+                }
+                return("1")
+             }
+            function getuser(){
+                let req=new XMLHttpRequest();
+                req.open("GET","/api/user");
+                req.onload=function(){
+                    let mydata= JSON.parse(req.response)
+                    if(mydata.data==null){
+                        document.location.href="/"
+                        
+                    }
+                    else{
+            
+                        loginitem.style.display="none";
+                        memberSys.style.display="block";
+                    }
+                }
+                req.send();
+
+            }
+            getuser();
+        }
+        const OB=document.querySelector('.ob')
+        let options={}
+        function callback(entry){
+            if(entry[0].isIntersecting){
+                const nameElement = document.getElementsByName('keyword');
+                const keyword = nameElement[0].value;
+                if (keyword==""){
+                    getOrderData();
+                }
+                else{
+                    
+                }
+            }        
+        }
+        let observer=new IntersectionObserver(callback,options)
+        init();
+        observer.observe(OB);
+
+    </script>
+</html>
+        
+

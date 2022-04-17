@@ -22,6 +22,7 @@
             }
             a {text-decoration:none;color:#666666;}
             a:visited {color:#666666;}
+            a:hover{opacity: .5;}
             .NBtitle a{text-decoration:none;color:#448899; }
             .NBtitle a:visitedcolor:{color:#448899;}
             .CS{
@@ -56,9 +57,11 @@
             .content-bold{
                 font-weight:bold;font-size:1.5rem;color: #F8F8F8;margin:0rem 0 0.5rem 0;
             }
+            .content-bold:hover{cursor: default;}
             .content-{
                 font-size:1rem;color: #F8F8F8;
             }
+            .content-:hover{cursor: default;}
             .search{
                 margin-top: 1rem;
                  display:flex;flex-direction: row;align-content: center;
@@ -75,6 +78,7 @@
                 margin-left: -4px;
                 background-color: #448899;
             }
+            .button:hover{cursor: pointer;}
             .parent-box{
                 display:flex;
                 flex-wrap:wrap;
@@ -90,7 +94,10 @@
                 border: 1px solid #E8E8E8;
                 border-radius: 5px;
                 
-
+            }
+            .box:hover{
+                cursor: pointer;
+                opacity: .5;
             }
             .box-name{
                 font-family:'Noto Sans TC';font-weight: bolder;color:#757575; padding:5px; line-height:25px; margin-top:2%;
@@ -221,6 +228,7 @@
             #logoutitem{
                 display:none;
             }
+            .sign-button:hover{cursor: pointer; Opacity:0.5;}
             @media screen and (max-width:1200px){
                 .NavigationBar{width:90%;}
                 .NBtitle{flex:6;}
@@ -238,6 +246,7 @@
                 background-image:url("/static/images/section-Mobile.png");
                 background-size: contain;
                 background-position: right top;
+
                 
 
                 }
@@ -245,7 +254,22 @@
                     height: 640px;
                 }
             }
-
+            #memberSys{display:none;}
+            .memberItem{
+                position:absolute;
+                border-radius:5px;
+                border:2px;
+                background-color:#FFFFFF;
+                box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+            
+            }
+            #memberItem{
+                display:none;
+            }
+            .memberItemContent{
+                margin:10px;
+                
+            }
         </style>
         <script type="text/javascript">
             function delay(n){
@@ -436,7 +460,14 @@
                     <div class="NBitem">
                         <div class="item"><a id="reserve"href="javascript:void(0)">預定行程</a></div>
                         <div class="item" id="loginitem"><a id="btlogin"href="javascript:void(0)">登入</a>/<a id="btresg"href="javascript:void(0)">註冊</a></div>
-                        <div class="item" id="logoutitem"><a id="btlogout"href="javascript:void(0)">登出系統</a></div>
+                        <div class="item" id="memberSys"><a id="memberSysBt"href="javascript:void(0)">會員系統</a>
+                            <div class="memberItem" id="memberItem">
+                                <div class="memberItemContent"><a id="memberOrder"href="/member/orders">訂單查詢</a></div>
+                                <div class="memberItemContent"><a id="memberInformation"href="/member/information">會員資料</a></div>
+                                <div class="memberItemContent"><a id="btlogout"href="javascript:void(0)">登出系統</a></div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -456,9 +487,10 @@
                     </div>
                 </div>
             </div>
+            <div id="bg" class="bg">&thinsp;</div>
             <div class="parent-box" id="parent-box">                
             </div>
-            <div id="bg" class="bg">&thinsp;</div>
+            
             <div id="login" class="login">
                 <div class="decorator" >&thinsp;</div>
                 <div class="login-title" id="login-title">
@@ -512,9 +544,14 @@
             let regbutton=document.getElementById("regbutton");
             let longinmessage=document.getElementById("longinmessage");
             let loginitem=document.getElementById("loginitem");
-            let logoutitem=document.getElementById("logoutitem");
+            let memberSys=document.getElementById("memberSys");
             let btlogout=document.getElementById("btlogout");
             let reserve=document.getElementById("reserve");
+            let memberSysBt=document.getElementById("memberSysBt");
+            let memberItem=document.getElementById("memberItem");
+            console.log(memberItem.style.display)
+            memberItem.style.display="none"
+            console.log(memberItem.style.display)
             changeregister.onclick=function(){
                 login.style.display="none";
                 register.style.display="block"; 
@@ -618,6 +655,15 @@
                 }
                 req.send();
             }
+            memberSysBt.onclick=function(){
+               if (memberItem.style.display=="none"){
+                    memberItem.style.display="block";
+               }
+               else{
+                    memberItem.style.display="none";
+                
+                }
+            }
             function getuser(){
                 let req=new XMLHttpRequest();
                 req.open("GET","/api/user");
@@ -629,7 +675,7 @@
                     }
                     else{
                         loginitem.style.display="none";
-                        logoutitem.style.display="block";
+                        memberSys.style.display="block";
                     }
                 }
                 req.send();

@@ -22,6 +22,7 @@
             }
             a {text-decoration:none;color:#666666;}
             a:visited {color:#666666;}
+            a:hover{opacity: .5;}
             .CS{
                 
             }
@@ -183,6 +184,45 @@
             #mynumber{
                 font-weight:bolder;
             }
+
+
+            #memberSys{display:none;}
+            .memberItem{
+                position:absolute;
+                border-radius:5px;
+                border:2px;
+                background-color:#FFFFFF;
+                box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+            
+            }
+            #memberItem{
+                display:none;
+            }
+            .memberItemContent{
+                margin:10px;
+                
+            }
+
+
+            @media screen and (max-width:1200px){
+                .NavigationBar{width:90%;}
+                .NBtitle{flex:6;}
+                .content{width:90%;}
+                .parent-box{width:90%;}
+                
+            }
+            @media screen and (max-width:1025px){.NBtitle{flex:1;}}
+            @media screen and (max-width:600px){
+                .NBtitle{flex:1;}
+                .box{width:100%;}
+                .content{
+                    weight:90%
+                }
+
+                .bg{
+                    height: 640px;
+                }
+            }
         </style>
         <body>
             <div class="CS">
@@ -193,7 +233,14 @@
                         <div class="NBitem">
                             <div class="item"><a id="reserve"href="/booking">預定行程</a></div>
                             <div class="item" id="loginitem"><a id="btlogin"href="javascript:void(0)">登入</a>/<a id="btresg"href="javascript:void(0)">註冊</a></div>
-                            <div class="item" id="logoutitem"><a id="btlogout"href="javascript:void(0)">登出系統</a></div>
+                            <div class="item" id="memberSys"><a id="memberSysBt"href="javascript:void(0)">會員系統</a>
+                                <div class="memberItem" id="memberItem">
+                                    <div class="memberItemContent"><a id="memberOrder"href="/member/orders">訂單查詢</a></div>
+                                    <div class="memberItemContent"><a id="memberInformation"href="/member/information">會員資料</a></div>
+                                    <div class="memberItemContent"><a id="btlogout"href="javascript:void(0)">登出系統</a></div>
+                                </div>
+    
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -219,7 +266,13 @@
                 let logoutitem=document.getElementById("logoutitem");
                 let btlogout=document.getElementById("btlogout");
                 let mynumber=document.getElementById("mynumber");
-                
+
+
+                let memberSys=document.getElementById("memberSys");
+                let memberSysBt=document.getElementById("memberSysBt");
+                let memberItem=document.getElementById("memberItem");
+                memberItem.style.display="none";
+
                 let now_url = location.href;
                 let new_url=now_url.split('=');
                 mynumber.innerHTML=new_url[1]
@@ -235,6 +288,15 @@
                     }
                     req.send();
                 }
+                memberSysBt.onclick=function(){
+                    if (memberItem.style.display=="none"){
+                         memberItem.style.display="block";
+                    }
+                    else{
+                         memberItem.style.display="none";
+                     
+                     }
+                 }
                 function getuser(){
                     let req=new XMLHttpRequest();
                     req.open("GET","/api/user");
@@ -247,7 +309,7 @@
                         else{
                 
                             loginitem.style.display="none";
-                            logoutitem.style.display="block";
+                            memberSys.style.display="block";
                         }
                     }
                     req.send();

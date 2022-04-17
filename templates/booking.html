@@ -22,6 +22,7 @@
             }
             a {text-decoration:none;color:#666666;}
             a:visited {color:#666666;}
+            a:hover{opacity: .5;}
             .CS{
                 
             }
@@ -268,8 +269,8 @@
             }
             @media screen and (max-width:1200px){
                 .NavigationBar{width:90%;}
-                .NBtitle{flex:1.5;}
-                .NBitem{flex:0.5;}
+                .NBtitle{flex:1;}
+                .NBitem{flex:1;}
                 #hello{width:95%;}
                 .booking{width:95%;margin:auto;margin-top:1rem;margin-bottom:1rem;}
                 .textline{width:95%;margin:auto;}
@@ -340,6 +341,25 @@
                 text-align:center;
 
             }
+
+            .bookbt:hover{cursor: pointer;opacity:0.5;}
+            .delet:hover{cursor: pointer;opacity:0.5;}
+            #memberSys{display:none;}
+            .memberItem{
+                position:absolute;
+                border-radius:5px;
+                border:2px;
+                background-color:#FFFFFF;
+                box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+            
+            }
+            #memberItem{
+                display:none;
+            }
+            .memberItemContent{
+                margin:10px;
+                
+            }
         </style>
         <script>
             function checkCardNumber(){
@@ -356,7 +376,15 @@
                         <div class="NBitem">
                             <div class="item"><a id="reserve"href="/booking">預定行程</a></div>
                             <div class="item" id="loginitem"><a id="btlogin"href="javascript:void(0)">登入</a>/<a id="btresg"href="javascript:void(0)">註冊</a></div>
-                            <div class="item" id="logoutitem"><a id="btlogout"href="javascript:void(0)">登出系統</a></div>
+                            <div class="item" id="memberSys"><a id="memberSysBt"href="javascript:void(0)">會員系統</a>
+                                <div class="memberItem" id="memberItem">
+                                    <div class="memberItemContent"><a id="memberOrder"href="/member/orders">訂單查詢</a></div>
+                                    <div class="memberItemContent"><a id="memberInformation"href="/member/information">會員資料</a></div>
+                                    <div class="memberItemContent"><a id="btlogout"href="javascript:void(0)">登出系統</a></div>
+                                </div>
+    
+                            </div>
+    
                         </div>
                     </div>
                 </div>
@@ -454,11 +482,29 @@
                 let bookpay=document.getElementById("bookpay");
                 let payforbook=document.getElementById("payforbook");
 
+                let contactuser=document.getElementById("contactuser");
+                let contactemail=document.getElementById("contactemail")
                 
                 let line1=document.getElementById("line1");
                 let line2=document.getElementById("line2");
                 let line3=document.getElementById("line3");
+
+                let memberSys=document.getElementById("memberSys");
+                let memberSysBt=document.getElementById("memberSysBt");
+                let memberItem=document.getElementById("memberItem");
+
+                memberItem.style.display="none"
                 
+                memberSysBt.onclick=function(){
+                    if (memberItem.style.display=="none"){
+                         memberItem.style.display="block";
+                    }
+                    else{
+                         memberItem.style.display="none";
+                     
+                     }
+                }
+
                 btlogout.onclick=function(){
                     let req=new XMLHttpRequest();
                     req.open("DELETE","/api/user");
@@ -498,11 +544,11 @@
                             contactuser.value=user;
                             contactemail.value=email;
                             loginitem.style.display="none";
-                            logoutitem.style.display="block";
+                            memberSys.style.display="block";
                         }
                     }
                     req.send();
-                    closeDiv();
+                   
     
                 }
                 function getbook(){
@@ -552,9 +598,16 @@
         <script src="https://code.jquery.com/jquery-3.2.1.min.js" ></script>    
         <script src="https://js.tappaysdk.com/tpdirect/v5.9.0"></script>
         <script>
+            function initPage() {   
+                var objLoading = document.getElementById("loading");   
+                if (objLoading != null)   
+                {   
+                    objLoading.style.display = "none";   
+                }   
+            }  
             init();
-            
-            TPDirect.setupSDK(123456789, 'appkey', 'sandbox')
+            window.onload = initPage();
+            TPDirect.setupSDK(12345678, 'app_key', 'sandbox')
             TPDirect.card.setup({
                 fields: {
                     number: {
@@ -634,13 +687,15 @@
                     // submitButton.removeAttribute('disabled')
                     bookbt.removeAttribute('disabled')
                     bookbt.style.backgroundColor="#448899"
-                    //$('button[type="submit"]').removeAttr('disabled')
+
+
                    
                    
                 } else {
                     // submitButton.setAttribute('disabled', true)
                     bookbt.setAttribute('disabled', true)
                     bookbt.style.backgroundColor="#8E8E8E"
+    
                     //$('button[type="submit"]').attr('disabled', true)
                    
                 }

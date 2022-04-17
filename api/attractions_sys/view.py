@@ -17,14 +17,15 @@ def view_select(page):
 def attractions_search():
     page=request.args.get("page","0")
     keyword=request.args.get("keyword","*")
-    mydb = mysql.connector.connect(
-    host='localhost',
-    port='3306',
-    user='root',
-    password='qweasdzxc',
-    database='taipei_day_trip_website'
-    )
-    mycursor = mydb.cursor()
+    # mydb = mysql.connector.connect(
+    # host='localhost',
+    # port='3306',
+    # user='root',
+    # password='qweasdzxc',
+    # database='taipei_day_trip_website'
+    # )
+    cnx = mysql.connector.connect(pool_name = "mypool")
+    mycursor = cnx.cursor()
     if keyword=="*":
         view_page=[]
         sql_conut="SELECT count(*)FROM `TAIPEI_VIEW`"
@@ -51,12 +52,12 @@ def attractions_search():
         if page_int<view_maxpage:    
             view_page_js=jsonify({"nextPage":int(page)+1,"data":view_page})
             mycursor.close()
-            mydb.close()
+            cnx.close()
             return(view_page_js)
         else :
             view_page_js=jsonify({"nextPage":None,"data":view_page})
             mycursor.close()
-            mydb.close()
+            cnx.close()
             return(view_page_js)
         '''    
         if page=="0":
@@ -174,7 +175,7 @@ def attractions_search():
             view_page_js=jsonify({"nextPage":page_int+1,"data":view_key_data})
             # print(myresult_key)
             mycursor.close()
-            mydb.close()
+            cnx.close()
             return(view_page_js)
         else :
             sql=search_key(page)
@@ -191,18 +192,19 @@ def attractions_search():
                 view_key_data.append(data_resoponse)
             view_page_js=jsonify({"nextPage":None,"data":view_key_data})
             mycursor.close()
-            mydb.close()
+            cnx.close()
             return(view_page_js) 
 @attractions_sys.route('/attraction/<attractionID>')
 def attraction_id_search(attractionID):
-    mydb = mysql.connector.connect(
-    host='localhost',
-    port='3306',
-    user='root',
-    password='qweasdzxc',
-    database='taipei_day_trip_website'
-    )
-    mycursor = mydb.cursor()
+    # mydb = mysql.connector.connect(
+    # host='localhost',
+    # port='3306',
+    # user='root',
+    # password='qweasdzxc',
+    # database='taipei_day_trip_website'
+    # )
+    cnx = mysql.connector.connect(pool_name = "mypool")
+    mycursor = cnx.cursor()
     attractionID_sql=(attractionID,)
     sql="SELECT `id`,`name`,`category`,`description`,`address`,`transport`,`mrt`,`latitude`,`longitude`,`images` FROM `TAIPEI_VIEW` WHERE `view_id`=%s"
     mycursor.execute(sql,attractionID_sql)
@@ -216,7 +218,7 @@ def attraction_id_search(attractionID):
         data_resoponse_data={'data':data_resoponse}
         data_resoponse_js=jsonify(data_resoponse_data)
         mycursor.close()
-        mydb.close()
+        cnx.close()
         return(data_resoponse_js)
     else:
         sql_count="SELECT count(*) FROM `TAIPEI_VIEW`"
@@ -229,7 +231,7 @@ def attraction_id_search(attractionID):
         }
         response_body=jsonify(response_body)
         mycursor.close()
-        mydb.close()
+        cnx.close()
         return(response_body)
 @attractions_sys.route('/attraction/')
 def attraction_id_error():
