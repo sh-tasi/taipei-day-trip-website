@@ -290,6 +290,12 @@
             }
         </style>
         <script type="text/javascript">
+	    function delay(n){
+               return new Promise(function(resolve){
+                     setTimeout(resolve,n*1000);
+                     });
+            }
+
             async function getOrderData(){
                 const nameElement = document.getElementsByName('keyword');
                 const keyword = nameElement[0].value;
@@ -309,6 +315,7 @@
                         message.setAttribute("class","order");
                         message.textContent="目前尚未有任何訂單"
                         parentbox.appendChild(message);
+			UseSubmitBehavior=0;
 
                     }
                     else{
@@ -328,6 +335,7 @@
                             image=attraction.image
                             name=attraction.name
                             addElement(i,nextPage,number,status,image,name,date,time,price,address);
+                            UseSubmitBehavior=0;
                         }
                         nextPage=data.nextPage;
                     }
@@ -350,6 +358,7 @@
                         box.textContent="訂單編號錯誤，請重新確認";
                         
                         parentbox.appendChild(box);
+                        UseSubmitBehavior=0;
                     }
                     else{
                         number=my_result.number
@@ -367,30 +376,42 @@
                         image=attraction.image
                         name=attraction.name
                         addElementForSearch(number,status,image,name,date,time,price,address);
+                        UseSubmitBehavior=0;
                     }
                 }
                 
                 
             }
+	    let UseSubmitBehavior=0;
             function searchOrder(){
                 const nameElement = document.getElementsByName('keyword');
                 const keyword = nameElement[0].value;
+		
                 if (keyword==""){
                     let node=document.querySelector('#parent-box')
                     while (node.firstChild){
                         node.removeChild(node.firstChild)
                     }
-                    nextPage=0;
-                    getOrderData();
-                    
-                    return("all data")
+		    if (UseSubmitBehavior==0){
+                     nextPage=0;
+		     UseSubmitBehavior=1;
+                     getOrderData();
+                     
+                     return("all data")
+	            }
                 }
                 else{
+		    nextPage=0;
                     let node=document.querySelector('#parent-box')
                     while (node.firstChild){
                         node.removeChild(node.firstChild)
+			
                     }
-                    getkey(keyword);
+		    console.log(nextPage);
+                    if (UseSubmitBehavior==0){
+                                             UseSubmitBehavior=1;
+                         getkey(keyword);
+                                        }
                 }
             }
         </script>
@@ -461,11 +482,6 @@
         <div class="copy"><div class="COPYRIGHT" id="COPYRIGHT">COPYRIGHT © 2021 台北一日遊</div>
     <body>
     <script>
-        function delay(n){
-            return new Promise(function(resolve){
-                setTimeout(resolve,n*1000);
-                });
-        }
         function addElement(i,page,number,status,image,name,date,time,price,address){
             parentbox=document.getElementById("parent-box")
             let order= document.createElement("div");
