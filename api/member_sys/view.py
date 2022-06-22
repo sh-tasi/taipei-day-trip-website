@@ -87,7 +87,7 @@ def set_token(username):
     encoded_jwt = jwt.encode({"username": username}, "secret", algorithm="HS256")
     response_js=jsonify({"ok":True})
     resp = make_response (response_js)
-    resp.set_cookie(key='JWT', value=encoded_jwt, expires=time.time()+15*60,httponly=True)
+    resp.set_cookie(key='JWT', value=encoded_jwt, expires=time.time()+60*60*24,httponly=True)
     return resp
 def get_token():
     JWT = request.cookies.get('JWT')
