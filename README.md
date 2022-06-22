@@ -2,12 +2,12 @@
 #### 這是以台北為基礎的電商旅遊網站，可以瀏覽行程並下訂單
 #### 上線連結 ：https://oystertw.xyz/
 #### 測試帳號 ：test1@test  密碼: test
----
+
 ## 第三方支付 TapPay
 #### 測試卡號 ：4242-4242-4242
 #### 日期 ：01/23
 #### 安全碼 ：123
----
+
 ## 後端技術
 - **Python**
 - **Flask**
@@ -24,7 +24,8 @@
 ## 流程圖
 [![](https://github.com/sh-tasi/test001/blob/main/taipeiday%20pic/taipei%20day%20trip.png?raw=true)](https://github.com/sh-tasi/test001/blob/main/taipeiday%20pic/taipei%20day%20trip.png?raw=true "flow")
 
-##操作說明
+## 操作說明
+
 ### 1. 選擇景點
 [![](https://raw.githubusercontent.com/sh-tasi/test001/main/taipeiday%20pic/%E9%A6%96%E9%A0%81%E6%93%8D%E4%BD%9C.png)](https://raw.githubusercontent.com/sh-tasi/test001/main/taipeiday%20pic/%E9%A6%96%E9%A0%81%E6%93%8D%E4%BD%9C.png "index")
 
